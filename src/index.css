@@ -1,0 +1,85 @@
+@import url('https://fonts.googleapis.com/css2?family=Bahiana&family=Roboto:wght@300;400;500;700&family=Sevillana&display=swap');
+
+:root {
+  --pink-100: #fbdfe4;
+  --pink-200: #fff4f6;
+  --pink-300: #f69eac;
+  --brown-700: #653321;
+  --brown-600: #694b41;
+  --border-soft: #b09da0;
+  --text-main: #6f5a57;
+  --black-soft: #090909;
+  --radius-lg: 30px;
+  --radius-md: 10px;
+  --shadow-card: 0 4px 6px rgba(101, 51, 33, 0.35);
+  --font-title: 'Bahiana', cursive;
+  --font-body: 'Roboto', sans-serif;
+  --font-brand: 'Sevillana', cursive;
+  --toastify-color-progress-success: #f69eac;
+  --toastify-color-progress-light: #f69eac;
+  --toastify-color-success: #f69eac;
+  font-family: var(--font-body);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background-color: var(--pink-100);
+  color: var(--text-main);
+}
+
+.Toastify__toast-container {
+  width: 360px;
+}
+
+.Toastify__toast {
+  background: var(--pink-200);
+  color: var(--brown-700);
+  border: 1px solid var(--brown-700);
+  border-radius: 14px;
+  box-shadow: var(--shadow-card);
+  min-height: 58px;
+  font-family: var(--font-body);
+}
+
+.Toastify__toast-icon svg {
+  fill: var(--pink-300);
+}
+
+.Toastify__toast-body {
+  margin: 0;
+  padding: 0 4px;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.Toastify__close-button {
+  color: var(--brown-700);
+  opacity: 0.8;
+}
+
+.Toastify__progress-bar--success {
+  background: #f69eac !important;
+}
+
+.Toastify__progress-bar {
+  background: #f69eac !important;
+}
+
+.Toastify__progress-bar-theme--light.Toastify__progress-bar--success {
+  background: #f69eac !important;
+}
+
+@media (max-width: 768px) {
+  .Toastify__toast-container {
+    width: min(94vw, 360px);
+  }
+}

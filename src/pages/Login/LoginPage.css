@@ -1,0 +1,95 @@
+.login-page {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.login-page__content {
+  height: calc(100vh - 56px);
+  width: min(100%, 1440px);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(460px, 1fr) minmax(360px, 0.88fr);
+  gap: 2rem;
+  align-items: center;
+  padding: 0 4.5rem;
+}
+
+.login-page__brand-area,
+.login-page__form-area {
+  min-height: 580px;
+  display: flex;
+  align-items: center;
+}
+
+.login-page__form-area {
+  justify-content: flex-end;
+}
+
+.auth-card-switcher {
+  animation-duration: 1500ms;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  animation-fill-mode: both;
+  transform-origin: top right;
+}
+
+.auth-card-switcher--login {
+  animation-name: auth-card-enter-left;
+}
+
+.auth-card-switcher--register {
+  animation-name: auth-card-enter-right;
+}
+
+@keyframes auth-card-enter-left {
+  from {
+    opacity: 0;
+    transform: translateX(-18px) translateY(6px) scale(0.985);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes auth-card-enter-right {
+  from {
+    opacity: 0;
+    transform: translateX(18px) translateY(6px) scale(0.985);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (max-width: 1024px) {
+  .login-page {
+    height: auto;
+    min-height: 100vh;
+    overflow: visible;
+  }
+
+  .login-page__content {
+    height: auto;
+    grid-template-columns: 1fr;
+    padding: 2rem 1.25rem;
+    gap: 1.5rem;
+  }
+
+  .login-page__form-area {
+    justify-content: center;
+  }
+
+  .auth-card-switcher {
+    transform-origin: top center;
+  }
+
+  .login-page__brand-area,
+  .login-page__form-area {
+    min-height: auto;
+  }
+}

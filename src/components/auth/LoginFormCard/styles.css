@@ -1,0 +1,115 @@
+.login-card {
+  width: 402px;
+  height: 460px;
+  margin-left: auto;
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.login-card__tab {
+  position: absolute;
+  top: -38px;
+  right: 98px;
+  width: 198px;
+  height: 48px;
+  border: 1px solid var(--border-soft);
+  border-radius: 30px 30px 0 0;
+  background: linear-gradient(180deg, var(--pink-300) 88%, #161011 100%);
+  color: var(--brown-700);
+  font-family: var(--font-body);
+  font-size: 20px;
+  font-weight: 400;
+  cursor: pointer;
+  z-index: 0;
+  transition: transform 0.2s ease, filter 0.2s ease, box-shadow 0.2s ease;
+}
+
+.login-card__tab:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.03);
+  box-shadow: 0 2px 6px rgba(101, 51, 33, 0.2);
+}
+
+.login-card__tab:active {
+  transform: translateY(-1px);
+}
+
+.login-card__container {
+  position: relative;
+  width: 402px;
+  height: 460px;
+  background-color: var(--pink-200);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  padding: 52px 42px 36px;
+  z-index: 1;
+}
+
+.login-card__container h2 {
+  margin: 0 0 32px;
+  text-align: center;
+  font-family: var(--font-title);
+  color: var(--brown-700);
+  font-size: 48px;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+}
+
+.login-card__form {
+  display: grid;
+  width: 318px;
+  margin: 0 auto;
+  gap: 10px;
+}
+
+.login-card__form .primary-button {
+  margin-top: 6px;
+}
+
+.login-card__status {
+  margin: 0;
+  min-height: 16px;
+  font-size: 12px;
+  line-height: 1.2;
+  text-align: center;
+}
+
+.login-card__status--error {
+  color: #b43a53;
+}
+
+@media (max-width: 1024px) {
+  .login-card {
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 500px) {
+  .login-card__tab {
+    right: 50%;
+    transform: translateX(50%);
+    width: 150px;
+  }
+
+  .login-card__container {
+    width: 100%;
+    height: auto;
+    padding: 52px 18px 28px;
+  }
+
+  .login-card {
+    width: 100%;
+    max-width: 402px;
+    height: auto;
+  }
+
+  .login-card__container h2 {
+    font-size: 3.8rem;
+  }
+
+  .login-card__form {
+    width: min(318px, 100%);
+  }
+}
