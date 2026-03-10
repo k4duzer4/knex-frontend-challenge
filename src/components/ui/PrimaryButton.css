@@ -7,7 +7,7 @@
   box-shadow: var(--shadow-card);
   color: var(--brown-700);
   font-family: var(--font-body);
-  font-size: 1.8rem;
+  font-size: 1.7rem;
   font-weight: 500;
   cursor: pointer;
   transition: transform 0.2s ease, filter 0.2s ease;
@@ -20,4 +20,10 @@
 
 .primary-button:active {
   transform: translateY(0);
+}
+
+@media (max-width: 768px) {
+  .primary-button {
+    font-size: 1.25rem;
+  }
 }

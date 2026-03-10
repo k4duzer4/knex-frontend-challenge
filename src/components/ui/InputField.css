@@ -6,7 +6,7 @@
 
 .input-field label {
   font-family: var(--font-body);
-  font-size: 2rem;
+  font-size: 1.95rem;
   font-weight: 400;
   color: var(--text-main);
 }
@@ -31,7 +31,7 @@
 
 @media (max-width: 768px) {
   .input-field label {
-    font-size: 1.4rem;
+    font-size: 1.2rem;
   }
 
   .input-field input {

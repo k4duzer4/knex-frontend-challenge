@@ -6,6 +6,8 @@
 
 .login-page__content {
   flex: 1;
+  width: min(100%, 1440px);
+  margin: 0 auto;
   display: grid;
   grid-template-columns: minmax(460px, 1fr) minmax(360px, 0.88fr);
   gap: 2rem;
@@ -29,6 +31,10 @@
     grid-template-columns: 1fr;
     padding: 2rem 1.25rem;
     gap: 1.5rem;
+  }
+
+  .login-page__form-area {
+    justify-content: center;
   }
 
   .login-page__brand-area,
