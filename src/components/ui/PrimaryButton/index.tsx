@@ -1,4 +1,4 @@
-import './PrimaryButton.css'
+import './styles.css'
 
 type PrimaryButtonProps = {
   children: string

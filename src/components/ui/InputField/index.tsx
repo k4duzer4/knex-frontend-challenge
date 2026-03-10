@@ -1,4 +1,4 @@
-import './InputField.css'
+import './styles.css'
 
 type InputFieldProps = {
   id: string

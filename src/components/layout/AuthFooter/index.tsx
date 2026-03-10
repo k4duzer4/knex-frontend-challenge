@@ -1,4 +1,4 @@
-import './AuthFooter.css'
+import './styles.css'
 
 type AuthFooterProps = {
   brand: string

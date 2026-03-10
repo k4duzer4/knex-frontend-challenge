@@ -1,6 +1,6 @@
-import InputField from '../ui/InputField'
-import PrimaryButton from '../ui/PrimaryButton'
-import './LoginFormCard.css'
+import InputField from '../../ui/InputField'
+import PrimaryButton from '../../ui/PrimaryButton'
+import './styles.css'
 
 type LoginFormCardProps = {
   onSwitchToSignUp: () => void

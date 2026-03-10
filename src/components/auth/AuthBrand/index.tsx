@@ -1,4 +1,4 @@
-import './AuthBrand.css'
+import './styles.css'
 
 function AuthBrand() {
   return (

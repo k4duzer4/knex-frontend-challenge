@@ -1,7 +1,7 @@
-import InputField from '../ui/InputField'
-import PrimaryButton from '../ui/PrimaryButton'
-import './LoginFormCard.css'
-import './RegisterFormCard.css'
+import InputField from '../../ui/InputField'
+import PrimaryButton from '../../ui/PrimaryButton'
+import '../LoginFormCard/styles.css'
+import './styles.css'
 
 type RegisterFormCardProps = {
   onSwitchToLogin: () => void
