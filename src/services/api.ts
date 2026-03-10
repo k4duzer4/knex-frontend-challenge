@@ -7,7 +7,7 @@ const appEnv = import.meta as ImportMeta & {
 }
 
 const api = axios.create({
-  baseURL: appEnv.env?.VITE_API_BASE_URL ?? 'http://localhost:3000',
+  baseURL: appEnv.env?.VITE_API_BASE_URL ?? 'https://knex.zernis.space',
   headers: {
     'Content-Type': 'application/json',
   },

@@ -1,6 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { toast } from 'react-toastify'
 import { loginSchema, type LoginSchemaType } from '../../../schemas/loginSchema'
 import { useAuth } from '../../../hooks/useAuth'
 import { loginUser } from '../../../services/authService'
@@ -15,7 +16,6 @@ type LoginFormCardProps = {
 function LoginFormCard({ onSwitchToSignUp }: LoginFormCardProps) {
   const { saveToken } = useAuth()
   const [requestError, setRequestError] = useState('')
-  const [requestSuccess, setRequestSuccess] = useState('')
 
   const {
     register,
@@ -28,12 +28,11 @@ function LoginFormCard({ onSwitchToSignUp }: LoginFormCardProps) {
 
   const onSubmit = handleSubmit(async (values) => {
     setRequestError('')
-    setRequestSuccess('')
 
     try {
       const response = await loginUser(values)
       saveToken(response.token)
-      setRequestSuccess('Login realizado com sucesso.')
+      toast.success('Login realizado com sucesso.')
     } catch {
       setRequestError('Falha no login. Verifique email e senha.')
     }
@@ -70,10 +69,10 @@ function LoginFormCard({ onSwitchToSignUp }: LoginFormCardProps) {
           </PrimaryButton>
 
           <p
-            className={`login-card__status ${requestError ? 'login-card__status--error' : 'login-card__status--success'}`}
+            className="login-card__status login-card__status--error"
             role="alert"
           >
-            {requestError || requestSuccess}
+            {requestError}
           </p>
         </form>
       </div>

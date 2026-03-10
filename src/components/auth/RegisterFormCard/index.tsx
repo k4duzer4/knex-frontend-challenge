@@ -1,6 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { toast } from 'react-toastify'
 import { registerSchema, type RegisterSchemaType } from '../../../schemas/registerSchema'
 import { registerUser } from '../../../services/authService'
 import InputField from '../../ui/InputField'
@@ -14,7 +15,6 @@ type RegisterFormCardProps = {
 
 function RegisterFormCard({ onSwitchToLogin }: RegisterFormCardProps) {
   const [requestError, setRequestError] = useState('')
-  const [requestSuccess, setRequestSuccess] = useState('')
 
   const {
     register,
@@ -27,7 +27,6 @@ function RegisterFormCard({ onSwitchToLogin }: RegisterFormCardProps) {
 
   const onSubmit = handleSubmit(async (values) => {
     setRequestError('')
-    setRequestSuccess('')
 
     try {
       await registerUser({
@@ -36,7 +35,7 @@ function RegisterFormCard({ onSwitchToLogin }: RegisterFormCardProps) {
         password: values.password,
       })
 
-      setRequestSuccess('Cadastro realizado. Voce ja pode fazer login.')
+      toast.success('Cadastro realizado com sucesso.')
       setTimeout(() => {
         onSwitchToLogin()
       }, 1000)
@@ -92,10 +91,10 @@ function RegisterFormCard({ onSwitchToLogin }: RegisterFormCardProps) {
           </PrimaryButton>
 
           <p
-            className={`login-card__status ${requestError ? 'login-card__status--error' : 'login-card__status--success'}`}
+            className="login-card__status login-card__status--error"
             role="alert"
           >
-            {requestError || requestSuccess}
+            {requestError}
           </p>
         </form>
       </div>
