@@ -1,49 +1,73 @@
-# Knex — Desafio Técnico 2026
+# React + TypeScript + Vite
 
-Este repositório contém os cases técnicos para as áreas **Backend**, **Frontend** e **Fullstack**. Escolha o case de acordo com a vaga e envie o link do(s) repositório(s) com sua solução.
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
----
+Currently, two official plugins are available:
 
-## Por área
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-### Backend
+## React Compiler
 
-Resolva o case em [`knex-backend-case/`](./knex-backend-case/).
+The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
-API RESTful para uma **plataforma de vendas corporativas**: empresas cadastram produtos, usuários podem ser colaboradores (gerenciam o catálogo da própria empresa) ou consumidores (apenas compram). Foco em login/registro, autenticação/autorização com JWT, CRUD de produtos e transações.
+## Expanding the ESLint configuration
 
----
+If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
 
-### Frontend
+```js
+export default defineConfig([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      // Other configs...
 
-Resolva o case em [`knex-frontend-case/`](./knex-frontend-case/) consumindo a API em [`knex-frontend-api-to-consume/`](./knex-frontend-api-to-consume/).
+      // Remove tseslint.configs.recommended and replace with this
+      tseslint.configs.recommendedTypeChecked,
+      // Alternatively, use this for stricter rules
+      tseslint.configs.strictTypeChecked,
+      // Optionally, add this for stylistic rules
+      tseslint.configs.stylisticTypeChecked,
 
-Site vitrine de **Loja de Doces** com React: página de cadastro/login de admin, CRUD de produtos e depoimentos. A API mockada está em `knex-frontend-api-to-consume` — suba-a localmente e consuma os endpoints no seu frontend.
-
----
-
-### Fullstack
-
-Resolva **os dois cases** acima: o backend da plataforma de vendas corporativas e o frontend da loja de doces (usando a API fornecida em `knex-frontend-api-to-consume`).
-
----
-
-## Entrega
-
-- **Não há formato obrigatório.** Você pode criar um repositório novo, fazer fork deste repositório ou usar qualquer outra forma de hospedar seu código.
-- A entrega é feita **enviando o link dos repositórios** de acordo com o case:
-  - **Backend:** link do repositório com a API
-  - **Frontend:** link do repositório com o frontend
-  - **Fullstack:** link(s) do(s) repositório(s) — pode ser um único repo com backend + frontend ou repositórios separados
-
----
-
-## Estrutura do repositório
-
+      // Other configs...
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+      // other options...
+    },
+  },
+])
 ```
-knex-challange-2026/
-├── knex-backend-case/          # Case Backend — Plataforma de vendas corporativas
-├── knex-frontend-case/         # Case Frontend — Site vitrine Loja de Doces
-├── knex-frontend-api-to-consume/  # API para o case Frontend (consumir no seu projeto)
-└── README.md                   # Este arquivo
+
+You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+
+```js
+// eslint.config.js
+import reactX from 'eslint-plugin-react-x'
+import reactDom from 'eslint-plugin-react-dom'
+
+export default defineConfig([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      // Other configs...
+      // Enable lint rules for React
+      reactX.configs['recommended-typescript'],
+      // Enable lint rules for React DOM
+      reactDom.configs.recommended,
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+      // other options...
+    },
+  },
+])
 ```
