@@ -1,18 +1,19 @@
 .login-page {
-  min-height: 100vh;
+  height: 100vh;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 }
 
 .login-page__content {
-  flex: 1;
+  height: calc(100vh - 56px);
   width: min(100%, 1440px);
   margin: 0 auto;
   display: grid;
   grid-template-columns: minmax(460px, 1fr) minmax(360px, 0.88fr);
   gap: 2rem;
   align-items: center;
-  padding: 3rem 4.5rem;
+  padding: 0 4.5rem;
 }
 
 .login-page__brand-area,
@@ -27,7 +28,14 @@
 }
 
 @media (max-width: 1024px) {
+  .login-page {
+    height: auto;
+    min-height: 100vh;
+    overflow: visible;
+  }
+
   .login-page__content {
+    height: auto;
     grid-template-columns: 1fr;
     padding: 2rem 1.25rem;
     gap: 1.5rem;

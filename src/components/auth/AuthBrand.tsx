@@ -8,7 +8,7 @@ function AuthBrand() {
         <strong>Cake</strong>
       </h1>
       <p className="auth-brand__subtitle">
-        O <span>CUPCAKE</span> DE MELHOR QUALIDADE ATE VOCE
+        O <span>CUPCAKE</span> DE MELHOR QUALIDADE ATÉ VOCÊ
       </p>
     </section>
   )

@@ -13,7 +13,7 @@
 .auth-brand__title span {
   font-family: var(--font-brand);
   color: var(--pink-300);
-  font-size: clamp(6rem, 12vw, 10rem);
+  font-size: 200px;
   font-weight: 400;
 }
 
@@ -21,7 +21,7 @@
   margin-top: -1.75rem;
   font-family: var(--font-brand);
   color: var(--brown-700);
-  font-size: clamp(7rem, 14vw, 11rem);
+  font-size: 200px;
   font-weight: 400;
 }
 
@@ -29,8 +29,9 @@
   margin-top: 1.25rem;
   font-family: var(--font-title);
   color: var(--brown-700);
-  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-size: 48px;
   letter-spacing: 0.03em;
+  white-space: nowrap;
 }
 
 .auth-brand__subtitle span {
@@ -42,7 +43,17 @@
     text-align: center;
   }
 
+  .auth-brand__title span,
+  .auth-brand__title strong {
+    font-size: clamp(5rem, 16vw, 9rem);
+  }
+
   .auth-brand__title strong {
     margin-top: -1rem;
+  }
+
+  .auth-brand__subtitle {
+    font-size: clamp(1.9rem, 5vw, 3rem);
+    white-space: normal;
   }
 }

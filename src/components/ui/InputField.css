@@ -6,13 +6,13 @@
 
 .input-field label {
   font-family: var(--font-body);
-  font-size: 1.95rem;
+  font-size: 16px;
   font-weight: 400;
   color: var(--text-main);
 }
 
 .input-field input {
-  width: 100%;
+  width: 318px;
   height: 50px;
   border-radius: var(--radius-md);
   border: 1px solid var(--brown-700);
@@ -30,11 +30,7 @@
 }
 
 @media (max-width: 768px) {
-  .input-field label {
-    font-size: 1.2rem;
-  }
-
   .input-field input {
-    height: 46px;
+    width: 100%;
   }
 }
