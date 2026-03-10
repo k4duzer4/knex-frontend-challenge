@@ -13,8 +13,13 @@ function LoginFormCard() {
         <h2>LOGIN ADMIN</h2>
 
         <form className="login-card__form" onSubmit={(event) => event.preventDefault()}>
-          <InputField id="email" label="Email:" type="email" />
-          <InputField id="password" label="Senha:" type="password" />
+          <InputField id="email" label="Email:" type="email" autoComplete="email" />
+          <InputField
+            id="password"
+            label="Senha:"
+            type="password"
+            autoComplete="current-password"
+          />
           <PrimaryButton type="submit">Logar</PrimaryButton>
         </form>
       </div>
