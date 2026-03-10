@@ -1,0 +1,36 @@
+.register-card {
+  width: 402px;
+  height: 493px;
+}
+
+.register-card .login-card__container {
+  width: 402px;
+  height: 493px;
+  padding: 40px 42px 26px;
+}
+
+.register-card .login-card__container h2 {
+  margin-bottom: 20px;
+}
+
+.register-card .login-card__form {
+  gap: 12px;
+}
+
+.register-card .login-card__form .primary-button {
+  margin-top: 6px;
+}
+
+@media (max-width: 500px) {
+  .register-card {
+    width: 100%;
+    max-width: 402px;
+    height: auto;
+  }
+
+  .register-card .login-card__container {
+    width: 100%;
+    height: auto;
+    padding: 40px 18px 24px;
+  }
+}

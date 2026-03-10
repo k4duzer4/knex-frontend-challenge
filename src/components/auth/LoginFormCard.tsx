@@ -2,10 +2,14 @@ import InputField from '../ui/InputField'
 import PrimaryButton from '../ui/PrimaryButton'
 import './LoginFormCard.css'
 
-function LoginFormCard() {
+type LoginFormCardProps = {
+  onSwitchToSignUp: () => void
+}
+
+function LoginFormCard({ onSwitchToSignUp }: LoginFormCardProps) {
   return (
     <section className="login-card" aria-label="Formulario de login administrativo">
-      <button className="login-card__tab" type="button">
+      <button className="login-card__tab" type="button" onClick={onSwitchToSignUp}>
         Sign Up
       </button>
 

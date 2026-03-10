@@ -1,9 +1,13 @@
+import { useState } from 'react'
 import AuthBrand from '../../components/auth/AuthBrand'
 import LoginFormCard from '../../components/auth/LoginFormCard'
+import RegisterFormCard from '../../components/auth/RegisterFormCard'
 import AuthFooter from '../../components/layout/AuthFooter'
 import './LoginPage.css'
 
 function LoginPage() {
+  const [activeCard, setActiveCard] = useState<'login' | 'register'>('login')
+
   return (
     <main className="login-page">
       <section className="login-page__content">
@@ -11,7 +15,11 @@ function LoginPage() {
           <AuthBrand />
         </div>
         <div className="login-page__form-area">
-          <LoginFormCard />
+          {activeCard === 'login' ? (
+            <LoginFormCard onSwitchToSignUp={() => setActiveCard('register')} />
+          ) : (
+            <RegisterFormCard onSwitchToLogin={() => setActiveCard('login')} />
+          )}
         </div>
       </section>
       <AuthFooter brand="Cup&Cake" />
