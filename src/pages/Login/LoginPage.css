@@ -27,6 +27,45 @@
   justify-content: flex-end;
 }
 
+.auth-card-switcher {
+  animation-duration: 1500ms;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  animation-fill-mode: both;
+  transform-origin: top right;
+}
+
+.auth-card-switcher--login {
+  animation-name: auth-card-enter-left;
+}
+
+.auth-card-switcher--register {
+  animation-name: auth-card-enter-right;
+}
+
+@keyframes auth-card-enter-left {
+  from {
+    opacity: 0;
+    transform: translateX(-18px) translateY(6px) scale(0.985);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes auth-card-enter-right {
+  from {
+    opacity: 0;
+    transform: translateX(18px) translateY(6px) scale(0.985);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
 @media (max-width: 1024px) {
   .login-page {
     height: auto;
@@ -43,6 +82,10 @@
 
   .login-page__form-area {
     justify-content: center;
+  }
+
+  .auth-card-switcher {
+    transform-origin: top center;
   }
 
   .login-page__brand-area,

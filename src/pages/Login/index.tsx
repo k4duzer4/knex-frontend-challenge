@@ -15,11 +15,13 @@ function LoginPage() {
           <AuthBrand />
         </div>
         <div className="login-page__form-area">
-          {activeCard === 'login' ? (
-            <LoginFormCard onSwitchToSignUp={() => setActiveCard('register')} />
-          ) : (
-            <RegisterFormCard onSwitchToLogin={() => setActiveCard('login')} />
-          )}
+          <div key={activeCard} className={`auth-card-switcher auth-card-switcher--${activeCard}`}>
+            {activeCard === 'login' ? (
+              <LoginFormCard onSwitchToSignUp={() => setActiveCard('register')} />
+            ) : (
+              <RegisterFormCard onSwitchToLogin={() => setActiveCard('login')} />
+            )}
+          </div>
         </div>
       </section>
       <AuthFooter brand="Cup&Cake" />
