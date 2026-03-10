@@ -1,6 +1,6 @@
 import { useCallback } from 'react'
 
-const TOKEN_COOKIE_KEY = 'knex_auth_token'
+export const TOKEN_COOKIE_KEY = 'knex_auth_token'
 const ONE_DAY_IN_SECONDS = 60 * 60 * 24
 
 function parseCookie(name: string) {
@@ -15,13 +15,17 @@ function parseCookie(name: string) {
   return decodeURIComponent(rawValue)
 }
 
+export function getAuthTokenFromCookie() {
+  return parseCookie(TOKEN_COOKIE_KEY)
+}
+
 export function useAuth() {
   const saveToken = useCallback((token: string) => {
     const encodedToken = encodeURIComponent(token)
     document.cookie = `${TOKEN_COOKIE_KEY}=${encodedToken}; path=/; max-age=${ONE_DAY_IN_SECONDS}; samesite=lax`
   }, [])
 
-  const getToken = useCallback(() => parseCookie(TOKEN_COOKIE_KEY), [])
+  const getToken = useCallback(() => getAuthTokenFromCookie(), [])
 
   const clearToken = useCallback(() => {
     document.cookie = `${TOKEN_COOKIE_KEY}=; path=/; max-age=0; samesite=lax`
