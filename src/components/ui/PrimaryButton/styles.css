@@ -23,6 +23,14 @@
   transform: translateY(-1px);
 }
 
+.primary-button:disabled {
+  opacity: 0.85;
+  cursor: not-allowed;
+  transform: none;
+  filter: none;
+  box-shadow: var(--shadow-card);
+}
+
 @media (max-width: 768px) {
   .primary-button {
     width: 100%;

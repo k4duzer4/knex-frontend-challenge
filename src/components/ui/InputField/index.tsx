@@ -1,32 +1,25 @@
+import type { InputHTMLAttributes } from 'react'
 import './styles.css'
 
 type InputFieldProps = {
   id: string
   label: string
-  type?: 'text' | 'email' | 'password'
-  placeholder?: string
-  autoComplete?: string
-  required?: boolean
-}
+  error?: string
+} & InputHTMLAttributes<HTMLInputElement>
 
-function InputField({
-  id,
-  label,
-  type = 'text',
-  placeholder,
-  autoComplete,
-  required = true,
-}: InputFieldProps) {
+function InputField({ id, label, error, className, ...inputProps }: InputFieldProps) {
   return (
     <div className="input-field">
       <label htmlFor={id}>{label}</label>
       <input
         id={id}
-        type={type}
-        placeholder={placeholder}
-        autoComplete={autoComplete}
-        required={required}
+        className={className}
+        aria-invalid={Boolean(error)}
+        {...inputProps}
       />
+      <span className="input-field__error" role="alert">
+        {error ?? ''}
+      </span>
     </div>
   )
 }
