@@ -1,0 +1,48 @@
+.auth-brand {
+  align-self: center;
+  max-width: 640px;
+  padding: 1rem;
+}
+
+.auth-brand__title {
+  margin: 0;
+  line-height: 0.9;
+  display: grid;
+}
+
+.auth-brand__title span {
+  font-family: var(--font-brand);
+  color: var(--pink-300);
+  font-size: clamp(6rem, 12vw, 10rem);
+  font-weight: 400;
+}
+
+.auth-brand__title strong {
+  margin-top: -1.75rem;
+  font-family: var(--font-brand);
+  color: var(--brown-700);
+  font-size: clamp(7rem, 14vw, 11rem);
+  font-weight: 400;
+}
+
+.auth-brand__subtitle {
+  margin-top: 1.25rem;
+  font-family: var(--font-title);
+  color: var(--brown-700);
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  letter-spacing: 0.03em;
+}
+
+.auth-brand__subtitle span {
+  color: var(--pink-300);
+}
+
+@media (max-width: 1024px) {
+  .auth-brand {
+    text-align: center;
+  }
+
+  .auth-brand__title strong {
+    margin-top: -1rem;
+  }
+}

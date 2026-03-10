@@ -7,15 +7,21 @@
 .login-page__content {
   flex: 1;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(460px, 1fr) minmax(360px, 0.88fr);
   gap: 2rem;
   align-items: center;
-  padding: 2.5rem 4rem;
+  padding: 3rem 4.5rem;
 }
 
 .login-page__brand-area,
 .login-page__form-area {
-  min-height: 560px;
+  min-height: 580px;
+  display: flex;
+  align-items: center;
+}
+
+.login-page__form-area {
+  justify-content: flex-end;
 }
 
 @media (max-width: 1024px) {
