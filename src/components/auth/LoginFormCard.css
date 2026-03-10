@@ -9,7 +9,7 @@
 
 .login-card__tab {
   position: absolute;
-  top: -32px;
+  top: -38px;
   right: 98px;
   width: 198px;
   height: 48px;
@@ -21,9 +21,11 @@
   font-size: 20px;
   font-weight: 400;
   cursor: default;
+  z-index: 0;
 }
 
 .login-card__container {
+  position: relative;
   width: 402px;
   height: 460px;
   background-color: var(--pink-200);
@@ -31,6 +33,7 @@
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-card);
   padding: 52px 42px 36px;
+  z-index: 1;
 }
 
 .login-card__container h2 {
