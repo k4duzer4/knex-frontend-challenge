@@ -1,6 +1,9 @@
 .home-hero {
   background: linear-gradient(180deg, #f7dce2 0%, #f5d6de 100%);
-  padding: 56px 0 72px;
+  min-height: 635px;
+  display: flex;
+  align-items: center;
+  padding: 0;
 }
 
 .home-hero__content {
@@ -14,8 +17,8 @@
 
 .home-hero__eyebrow {
   margin: 0;
-  color: var(--pink-300);
-  font-size: clamp(64px, 8vw, 96px);
+  color: #f69eac;
+  font-size: 86px;
   text-transform: uppercase;
   font-family: var(--font-title);
   line-height: 0.9;
@@ -24,15 +27,16 @@
 .home-hero h1 {
   margin: 8px 0 20px;
   color: var(--brown-700);
-  font-size: clamp(54px, 7vw, 88px);
+  font-size: 64px;
   line-height: 0.9;
   text-transform: uppercase;
   font-family: var(--font-title);
 }
 
-.home-hero p {
+.home-hero__description {
   margin: 0;
   width: min(95%, 460px);
+  font-size: 16px;
   line-height: 1.35;
   color: var(--brown-600);
 }
@@ -51,35 +55,28 @@
 
 .home-hero__visual {
   justify-self: center;
-  width: min(100%, 380px);
-  aspect-ratio: 1;
+  width: min(100%, 430px);
+  height: 470px;
   position: relative;
-}
-
-.home-hero__ring {
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  background: radial-gradient(circle at 30% 20%, #ff9fb2 0%, #f48da1 55%, #ef8094 100%);
 }
 
 .home-hero__cupcake {
   position: absolute;
   left: 50%;
   top: 50%;
-  width: 56%;
-  height: 64%;
-  transform: translate(-50%, -46%);
-  border-radius: 42% 42% 34% 34%;
-  background:
-    radial-gradient(circle at 50% 18%, #fff 0 16%, #f7acc0 17% 32%, #7a4432 33% 100%),
-    linear-gradient(180deg, #6f3b2c 0%, #2b1510 100%);
-  box-shadow: 0 24px 30px rgba(43, 21, 16, 0.25);
+  width: 400px;
+  height: 437px;
+  transform: translate(-50%, -50%);
+  object-fit: contain;
+  z-index: 1;
 }
 
 @media (max-width: 900px) {
   .home-hero {
+    min-height: auto;
     padding-top: 36px;
+    padding-bottom: 40px;
+    display: block;
   }
 
   .home-hero__content {
@@ -88,11 +85,17 @@
     text-align: center;
   }
 
-  .home-hero p {
+  .home-hero__description {
     margin: 0 auto;
   }
 
   .home-hero__visual {
-    max-width: 320px;
+    width: min(100%, 360px);
+    height: 394px;
+  }
+
+  .home-hero__cupcake {
+    width: 360px;
+    height: 394px;
   }
 }
