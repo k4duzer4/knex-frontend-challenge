@@ -61,11 +61,27 @@
   display: grid;
   width: 318px;
   margin: 0 auto;
-  gap: 20px;
+  gap: 10px;
 }
 
 .login-card__form .primary-button {
-  margin-top: 10px;
+  margin-top: 6px;
+}
+
+.login-card__status {
+  margin: 0;
+  min-height: 16px;
+  font-size: 12px;
+  line-height: 1.2;
+  text-align: center;
+}
+
+.login-card__status--error {
+  color: #b43a53;
+}
+
+.login-card__status--success {
+  color: #2f6a42;
 }
 
 @media (max-width: 1024px) {
