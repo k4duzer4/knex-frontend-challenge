@@ -1,0 +1,232 @@
+.home-contact {
+  background: #f2d8de;
+  padding: 106px 0 96px;
+}
+
+.home-contact__content {
+  width: min(1120px, calc(100% - 48px));
+  margin: 0 auto;
+}
+
+.home-contact__title {
+  margin: 0;
+}
+
+.home-contact__title .section-title-with-lines__line {
+  background: #ef9aab;
+}
+
+.home-contact__title .section-title-with-lines__text {
+  color: #5e3020;
+  font-family: var(--font-title);
+  font-size: 48px;
+  line-height: 0.95;
+  text-transform: uppercase;
+}
+
+.home-contact__subtitle {
+  margin: 10px 0 0;
+  text-align: center;
+  color: #6f5048;
+  font-size: 16px;
+  line-height: 1.2;
+}
+
+.home-contact__grid {
+  margin-top: 66px;
+  display: grid;
+  grid-template-columns: minmax(480px, 620px) minmax(260px, 360px);
+  justify-content: center;
+  align-items: start;
+  gap: clamp(44px, 7vw, 96px);
+}
+
+.home-contact__grid h3,
+.home-contact__grid label,
+.home-contact__grid input,
+.home-contact__grid button,
+.home-contact__details li {
+  font-weight: 400;
+}
+
+.home-contact__form {
+  background: #f0f0f0;
+  border-radius: 12px;
+  border: 1px solid rgba(101, 51, 33, 0.18);
+  box-shadow: 0 2px 8px rgba(82, 51, 40, 0.2);
+  width: min(590px, 100%);
+  height: 500px;
+  padding: 32px 50px 26px;
+}
+
+.home-contact__form h3 {
+  margin-top: 0;
+  margin-bottom: 38px;
+  text-align: center;
+  color: #6e4f46;
+  font-size: 24px;
+  line-height: 1.2;
+}
+
+.home-contact__form label {
+  display: block;
+  margin-top: 6px;
+  color: #7a716f;
+  font-size: 16px;
+  line-height: 1.3;
+}
+
+.home-contact__form input {
+  width: min(460px, 100%);
+  margin-top: 6px;
+  margin-bottom: 14px;
+  border: 1px solid #c0c0c0;
+  border-radius: 12px;
+  height: 50px;
+  background: #f0f0f0;
+  padding: 8px 14px;
+  font-size: 16px;
+  color: #6f5048;
+  box-shadow: var(--shadow-card);
+}
+
+.home-contact__form .home-contact__input--phone {
+  width: min(230px, 100%);
+  height: 50px;
+  margin-bottom: 22px;
+}
+
+.home-contact__form button {
+  margin-top: 0;
+  margin-left: auto;
+  display: block;
+  border: 1px solid rgba(101, 51, 33, 0.2);
+  border-radius: 10px;
+  width: 110px;
+  min-height: 50px;
+  background: #ef9aab;
+  color: #6a4c43;
+  font-size: 16px;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: var(--shadow-card);
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.home-contact__form button:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.02);
+}
+
+.home-contact__details {
+  margin-left: 44px;
+  padding-top: 24px;
+  color: #6d4d44;
+}
+
+.home-contact__details-block + .home-contact__details-block {
+  margin-top: 68px;
+}
+
+.home-contact__details h3 {
+  color: #6d4d44;
+  margin: 0 0 18px;
+  font-size: 24px;
+  line-height: 1.15;
+}
+
+.home-contact__social-icons {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.home-contact__social-icon {
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: transparent;
+  padding: 0;
+  line-height: 0;
+  color: inherit;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.home-contact__social-icon:hover {
+  transform: translateY(-2px);
+}
+
+.home-contact__social-icon svg {
+  width: 40px;
+  height: 40px;
+  display: block;
+}
+
+.home-contact__details ul {
+  margin: 0;
+  padding-left: 18px;
+}
+
+.home-contact__details li {
+  color: #6d4d44;
+  font-size: 16px;
+  line-height: 1.4;
+}
+
+@media (max-width: 900px) {
+  .home-contact {
+    padding: 66px 0;
+  }
+
+  .home-contact__content {
+    width: min(1120px, calc(100% - 24px));
+  }
+
+  .home-contact__grid {
+    grid-template-columns: 1fr;
+    margin-top: 42px;
+    gap: 34px;
+  }
+
+  .home-contact__form {
+    padding: 24px 18px;
+    height: auto;
+  }
+
+  .home-contact__form h3 {
+    font-size: clamp(28px, 8vw, 40px);
+    margin-bottom: 22px;
+  }
+
+  .home-contact__form label {
+    font-size: 20px;
+  }
+
+  .home-contact__form input {
+    min-height: 48px;
+    font-size: 18px;
+  }
+
+  .home-contact__form button {
+    width: 110px;
+    min-height: 50px;
+    font-size: 16px;
+  }
+
+  .home-contact__details {
+    padding-top: 2px;
+  }
+
+  .home-contact__details-block + .home-contact__details-block {
+    margin-top: 30px;
+  }
+
+  .home-contact__details h3 {
+    font-size: 24px;
+  }
+
+  .home-contact__details li {
+    font-size: 16px;
+  }
+}

@@ -1,0 +1,117 @@
+.home-about {
+  background: #f8f7f7;
+  min-height: 586px;
+  display: flex;
+  align-items: center;
+  padding: 0;
+}
+
+.home-about__content {
+  width: min(1120px, calc(100% - 64px));
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(280px, 320px) 1fr;
+  gap: clamp(30px, 5vw, 88px);
+  align-items: center;
+}
+
+.home-about__image-wrap {
+  width: 312px;
+}
+
+.home-about__photo {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.home-about__title-top {
+  margin-bottom: 10px;
+}
+
+.home-about__title-top .section-title-with-lines__line {
+  background: #ef9aab;
+}
+
+.home-about__title-text {
+  margin: 0;
+  color: var(--brown-700);
+  font-size: 48px;
+  text-transform: uppercase;
+  line-height: 1.02;
+  font-family: var(--font-title);
+  white-space: nowrap;
+}
+
+.home-about__title-text span {
+  color: #ef9aab;
+}
+
+.home-about h2 {
+  margin: 0;
+  color: var(--brown-700);
+  font-size: 48px;
+  text-transform: uppercase;
+  line-height: 1.02;
+  font-family: var(--font-title);
+  white-space: nowrap;
+  text-align: center;
+}
+
+.home-about__divider {
+  width: min(651px, 100%);
+  height: 2px;
+  background: #ef9aab;
+  margin: 18px auto 16px;
+}
+
+.home-about__description {
+  margin: 0 auto;
+  max-width: 650px;
+  font-size: 20px;
+  line-height: 1.5;
+  color: #7d7371;
+  text-align: left;
+}
+
+@media (max-width: 900px) {
+  .home-about {
+    min-height: auto;
+    padding: 66px 0;
+  }
+
+  .home-about__content {
+    width: min(1120px, calc(100% - 24px));
+    grid-template-columns: 1fr;
+    justify-items: center;
+    text-align: center;
+  }
+
+  .home-about__image-wrap {
+    width: min(312px, 76vw);
+  }
+
+  .home-about__photo {
+    width: 100%;
+    height: auto;
+  }
+
+  .home-about__title-text {
+    font-size: clamp(30px, 8.6vw, 48px);
+    white-space: normal;
+  }
+
+  .home-about h2 {
+    font-size: clamp(28px, 7.4vw, 48px);
+    white-space: normal;
+  }
+
+  .home-about__divider {
+    margin-top: 14px;
+    margin-bottom: 14px;
+  }
+
+  .home-about__description {
+    font-size: 18px;
+  }
+}
