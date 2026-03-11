@@ -1,3 +1,5 @@
+import { useState } from 'react'
+import AddProductModal from './components/AddProductModal'
 import FallbackInfo from './components/FallbackInfo'
 import ProductCarousel from './components/ProductCarousel'
 import { useCardsPerView } from './hooks/useCardsPerView'
@@ -8,6 +10,7 @@ import type { HomeProductsProps } from './types'
 import './styles.css'
 
 function HomeProducts({ token }: HomeProductsProps) {
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false)
   const cardsPerView = useCardsPerView()
   const { products, isLoading, requestError, isUsingMock, reloadProducts } = useProductsCatalog(token)
 
@@ -18,7 +21,12 @@ function HomeProducts({ token }: HomeProductsProps) {
           <SectionTitleWithLines as="h2" className="home-products__title">
             Nossos produtos
           </SectionTitleWithLines>
-          <IconButton icon="+" ariaLabel="Adicionar produto" className="home-products__header-button" />
+          <IconButton
+            icon="+"
+            ariaLabel="Adicionar produto"
+            className="home-products__header-button"
+            onClick={() => setIsAddModalOpen(true)}
+          />
         </div>
 
         <p className="home-products__subtitle">Conheça nossas opções de gostosuras.</p>
@@ -29,6 +37,8 @@ function HomeProducts({ token }: HomeProductsProps) {
 
         {!isLoading ? <ProductCarousel products={products} cardsPerView={cardsPerView} /> : null}
       </div>
+
+      <AddProductModal isOpen={isAddModalOpen} onClose={() => setIsAddModalOpen(false)} />
     </section>
   )
 }

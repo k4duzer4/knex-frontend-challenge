@@ -29,6 +29,23 @@ export function formatPrice(value: number | string) {
   })
 }
 
+export function formatBrlInput(value: string) {
+  const digitsOnly = value.replace(/\D/g, '')
+
+  if (!digitsOnly) {
+    return ''
+  }
+
+  const amount = Number(digitsOnly) / 100
+
+  return amount.toLocaleString('pt-BR', {
+    style: 'currency',
+    currency: 'BRL',
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  })
+}
+
 export function mapProductsToDisplay(products: Product[]): DisplayProduct[] {
   return products
     .filter((product) => product.file?.path)
