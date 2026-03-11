@@ -2,18 +2,22 @@ import { useEffect, useState, type ChangeEvent, type FormEvent } from 'react'
 import { createPortal } from 'react-dom'
 import IconButton from '../../../components/ui/IconButton'
 import SectionTitleWithLines from '../../../components/ui/SectionTitleWithLines'
-import { formatBrlInput } from '../../../utils/currency'
+import { formatBrlInput, parseBrlInputToNumber } from '../../../utils/currency'
 
 type AddProductModalProps = {
   isOpen: boolean
   onClose: () => void
+  onCreate: (input: { name: string; price: number; imageFile: File }) => Promise<void>
 }
 
-function AddProductModal({ isOpen, onClose }: AddProductModalProps) {
+function AddProductModal({ isOpen, onClose, onCreate }: AddProductModalProps) {
   const [name, setName] = useState('')
   const [price, setPrice] = useState('')
+  const [imageFile, setImageFile] = useState<File | null>(null)
   const [imageName, setImageName] = useState('')
   const [previewImage, setPreviewImage] = useState('')
+  const [submitError, setSubmitError] = useState('')
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
   useEffect(() => {
     if (!isOpen) return
@@ -40,20 +44,51 @@ function AddProductModal({ isOpen, onClose }: AddProductModalProps) {
     const reader = new FileReader()
     reader.onload = () => {
       const imageDataUrl = String(reader.result ?? '')
+      setImageFile(file)
       setImageName(file.name)
       setPreviewImage(imageDataUrl)
+      setSubmitError('')
     }
 
     reader.readAsDataURL(file)
   }
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
-    setName('')
-    setPrice('')
-    setImageName('')
-    setPreviewImage('')
-    onClose()
+
+    if (!imageFile) {
+      setSubmitError('Selecione uma foto para o produto.')
+      return
+    }
+
+    const parsedPrice = parseBrlInputToNumber(price)
+
+    if (parsedPrice <= 0) {
+      setSubmitError('Informe um valor maior que zero.')
+      return
+    }
+
+    try {
+      setIsSubmitting(true)
+      setSubmitError('')
+
+      await onCreate({
+        name: name.trim(),
+        price: parsedPrice,
+        imageFile,
+      })
+
+      setName('')
+      setPrice('')
+      setImageFile(null)
+      setImageName('')
+      setPreviewImage('')
+      onClose()
+    } catch {
+      setSubmitError('Nao foi possivel criar o produto agora.')
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   if (!isOpen) {
@@ -126,8 +161,16 @@ function AddProductModal({ isOpen, onClose }: AddProductModalProps) {
               placeholder="R$ 0,00"
               required
             />
-            <IconButton type="submit" icon="+" ariaLabel="Confirmar adicao de produto" className="home-products-modal__submit" />
+            <IconButton
+              type="submit"
+              icon="+"
+              ariaLabel="Confirmar adicao de produto"
+              className="home-products-modal__submit"
+              disabled={isSubmitting}
+            />
           </div>
+
+          {submitError ? <p className="home-products-modal__error">{submitError}</p> : null}
         </form>
       </div>
     </div>

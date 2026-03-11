@@ -2,15 +2,16 @@ import { motion } from 'framer-motion'
 
 type FallbackInfoProps = {
   show: boolean
+  message: string
   onReload: () => void
 }
 
-function FallbackInfo({ show, onReload }: FallbackInfoProps) {
+function FallbackInfo({ show, message, onReload }: FallbackInfoProps) {
   if (!show) return null
 
   return (
     <div className="home-products__fallback-info" role="status" aria-live="polite">
-      <span>Mostrando vitrine de teste</span>
+      <span>{message}</span>
       <motion.button
         type="button"
         className="home-products__notice-reload"

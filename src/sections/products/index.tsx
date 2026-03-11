@@ -12,7 +12,7 @@ import './styles.css'
 function HomeProducts({ token }: HomeProductsProps) {
   const [isAddModalOpen, setIsAddModalOpen] = useState(false)
   const cardsPerView = useCardsPerView()
-  const { products, isLoading, requestError, isUsingMock, reloadProducts } = useProductsCatalog(token)
+  const { products, isLoading, requestError, addProduct, reloadProducts } = useProductsCatalog(token)
 
   return (
     <section id="products" className="home-products" aria-label="Vitrine de produtos">
@@ -33,12 +33,16 @@ function HomeProducts({ token }: HomeProductsProps) {
 
         {isLoading ? <p className="home-products__status">Carregando produtos...</p> : null}
 
-        <FallbackInfo show={!isLoading && !!requestError && isUsingMock} onReload={reloadProducts} />
+        <FallbackInfo show={!isLoading && !!requestError} message={requestError} onReload={reloadProducts} />
 
         {!isLoading ? <ProductCarousel products={products} cardsPerView={cardsPerView} /> : null}
       </div>
 
-      <AddProductModal isOpen={isAddModalOpen} onClose={() => setIsAddModalOpen(false)} />
+      <AddProductModal
+        isOpen={isAddModalOpen}
+        onClose={() => setIsAddModalOpen(false)}
+        onCreate={addProduct}
+      />
     </section>
   )
 }

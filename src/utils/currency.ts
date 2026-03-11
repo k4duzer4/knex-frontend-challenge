@@ -27,3 +27,13 @@ export function formatBrlInput(value: string) {
     maximumFractionDigits: 2,
   })
 }
+
+export function parseBrlInputToNumber(value: string) {
+  const digitsOnly = value.replace(/\D/g, '')
+
+  if (!digitsOnly) {
+    return 0
+  }
+
+  return Number(digitsOnly) / 100
+}

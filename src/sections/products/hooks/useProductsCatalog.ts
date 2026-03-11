@@ -1,6 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
-import { getProductsByUser } from '../../../services/productService'
-import { MOCK_PRODUCTS } from '../mockProducts'
+import { createProductByUser, getProductsByUser, uploadProductFile } from '../../../services/productService'
 import type { Product } from '../../../types/product'
 import { DEFAULT_VISIBLE_PRODUCTS } from '../constants'
 import { mapProductsToDisplay } from '../utils'
@@ -48,13 +47,24 @@ export function useProductsCatalog(token: string) {
 
   const apiProducts = useMemo(() => mapProductsToDisplay(visibleProducts), [visibleProducts])
 
-  const isUsingMock = apiProducts.length === 0
+  async function addProduct(input: { name: string; price: number; imageFile: File }) {
+    const uploadedFile = await uploadProductFile(input.imageFile)
+
+    await createProductByUser(token, {
+      name: input.name,
+      description: input.name,
+      price: input.price,
+      file_id: uploadedFile.id,
+    })
+
+    setReloadTick((current) => current + 1)
+  }
 
   return {
     isLoading,
     requestError,
-    isUsingMock,
-    products: isUsingMock ? MOCK_PRODUCTS : apiProducts,
+    products: apiProducts,
+    addProduct,
     reloadProducts: () => setReloadTick((current) => current + 1),
   }
 }

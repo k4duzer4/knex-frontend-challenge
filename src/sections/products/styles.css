@@ -404,6 +404,14 @@
   font-size: 16px;
 }
 
+.home-products-modal__error {
+  margin: 8px auto 0;
+  width: 315px;
+  color: #a23a45;
+  font-size: 12px;
+  line-height: 1.2;
+}
+
 @media (max-width: 960px) {
   .home-products {
     min-height: auto;
