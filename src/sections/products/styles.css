@@ -178,14 +178,9 @@
   top: 6px;
   width: 24px;
   height: 20px;
-  border-radius: 10px;
-  border: 1px solid rgba(101, 51, 33, 0.2);
-  background: #ea96a8;
-  color: var(--brown-700);
   font-size: 18px;
   line-height: 1;
   padding: 0;
-  box-shadow: var(--shadow-card);
 }
 
 .home-products__placeholder {

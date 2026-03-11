@@ -1,5 +1,6 @@
 import { getNameInitial } from '../utils'
 import type { HomeTestimonial } from '../types'
+import IconButton from '../../../components/ui/IconButton'
 
 type TestimonialCardProps = {
   testimonial: HomeTestimonial
@@ -8,9 +9,7 @@ type TestimonialCardProps = {
 function TestimonialCard({ testimonial }: TestimonialCardProps) {
   return (
     <article className="home-testimonials__card">
-      <button type="button" className="home-testimonials__remove" aria-label={`Remover ${testimonial.name}`}>
-        -
-      </button>
+      <IconButton icon="-" className="home-testimonials__remove" ariaLabel={`Remover ${testimonial.name}`} />
 
       <div className="home-testimonials__card-head">
         <div className={`home-testimonials__avatar ${testimonial.accentClassName}`} aria-hidden>
