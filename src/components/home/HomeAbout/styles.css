@@ -1,44 +1,90 @@
 .home-about {
   background: #f8f7f7;
-  padding: 90px 0;
+  min-height: 586px;
+  display: flex;
+  align-items: center;
+  padding: 0;
 }
 
 .home-about__content {
-  width: min(1120px, calc(100% - 48px));
+  width: min(1120px, calc(100% - 64px));
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 240px 1fr;
-  gap: clamp(22px, 4vw, 74px);
+  grid-template-columns: minmax(280px, 320px) 1fr;
+  gap: clamp(30px, 5vw, 88px);
   align-items: center;
 }
 
+.home-about__image-wrap {
+  width: 312px;
+}
+
 .home-about__photo {
-  width: 240px;
-  aspect-ratio: 1;
-  border-radius: 50%;
-  background:
-    linear-gradient(140deg, #f2c5cd 0%, #f9d8df 40%, #fff 100%),
-    radial-gradient(circle at 30% 40%, #ffffff 0 40%, transparent 42%);
-  box-shadow: inset 0 0 0 16px #f19db0;
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.home-about__title-top {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 10px;
+}
+
+.home-about__title-line {
+  width: 113px;
+  height: 9px;
+  border-radius: 999px;
+  background: #ef9aab;
+  flex-shrink: 0;
+}
+
+.home-about__title-top p {
+  margin: 0;
+  color: var(--brown-700);
+  font-size: 48px;
+  text-transform: uppercase;
+  line-height: 1.02;
+  font-family: var(--font-title);
+  white-space: nowrap;
+}
+
+.home-about__title-top p span {
+  color: #ef9aab;
 }
 
 .home-about h2 {
   margin: 0;
   color: var(--brown-700);
-  font-size: clamp(44px, 5vw, 66px);
+  font-size: 48px;
   text-transform: uppercase;
-  line-height: 1;
+  line-height: 1.02;
   font-family: var(--font-title);
+  white-space: nowrap;
+  text-align: center;
 }
 
-.home-about p {
-  margin-top: 18px;
-  max-width: 720px;
+.home-about__divider {
+  width: min(651px, 100%);
+  height: 2px;
+  background: #ef9aab;
+  margin: 18px auto 16px;
+}
+
+.home-about__description {
+  margin: 0 auto;
+  max-width: 650px;
+  font-size: 20px;
   line-height: 1.5;
+  color: #7d7371;
+  text-align: left;
 }
 
 @media (max-width: 900px) {
   .home-about {
+    min-height: auto;
     padding: 66px 0;
   }
 
@@ -49,7 +95,40 @@
     text-align: center;
   }
 
+  .home-about__image-wrap {
+    width: min(312px, 76vw);
+  }
+
   .home-about__photo {
-    width: min(220px, 70vw);
+    width: 100%;
+    height: auto;
+  }
+
+  .home-about__title-top {
+    justify-content: center;
+  }
+
+  .home-about__title-line {
+    width: min(22vw, 96px);
+    height: 6px;
+  }
+
+  .home-about__title-top p {
+    font-size: clamp(30px, 8.6vw, 48px);
+    white-space: normal;
+  }
+
+  .home-about h2 {
+    font-size: clamp(28px, 7.4vw, 48px);
+    white-space: normal;
+  }
+
+  .home-about__divider {
+    margin-top: 14px;
+    margin-bottom: 14px;
+  }
+
+  .home-about__description {
+    font-size: 18px;
   }
 }
