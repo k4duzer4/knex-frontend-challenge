@@ -1,5 +1,5 @@
 import './styles.css'
-import heroCupcakeImage from '../../../assets/images/HomeHeroCupcake.png'
+import heroCupcakeImage from '../../assets/images/HomeHeroCupcake.png'
 
 function HomeHero() {
   return (

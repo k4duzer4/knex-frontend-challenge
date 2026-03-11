@@ -1,5 +1,6 @@
 import './styles.css'
-import homeAboutImage from '../../../assets/images/HomeAboutImagem.png'
+import homeAboutImage from '../../assets/images/HomeAboutImagem.png'
+import SectionTitleWithLines from '../../components/ui/SectionTitleWithLines'
 
 function HomeAbout() {
   return (
@@ -10,13 +11,11 @@ function HomeAbout() {
         </div>
 
         <div className="home-about__copy">
-          <div className="home-about__title-top">
-            <span className="home-about__title-line" aria-hidden />
-            <p>
+          <SectionTitleWithLines as="p" className="home-about__title-top" lineWidth={113} lineHeight={9}>
+            <span className="home-about__title-text">
               Somos uma equipe <span>Centrada</span>
-            </p>
-            <span className="home-about__title-line" aria-hidden />
-          </div>
+            </span>
+          </SectionTitleWithLines>
 
           <h2>Em levar o cupcake de melhor qualidade até você</h2>
 
