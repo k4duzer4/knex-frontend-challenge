@@ -48,7 +48,7 @@ export function useProductsCatalog(token: string) {
   const apiProducts = useMemo(() => mapProductsToDisplay(visibleProducts), [visibleProducts])
 
   async function addProduct(input: { name: string; price: number; imageFile: File }) {
-    const uploadedFile = await uploadProductFile(input.imageFile)
+    const uploadedFile = await uploadProductFile(token, input.imageFile)
 
     await createProductByUser(token, {
       name: input.name,

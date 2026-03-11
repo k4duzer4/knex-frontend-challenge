@@ -84,8 +84,8 @@ function AddProductModal({ isOpen, onClose, onCreate }: AddProductModalProps) {
       setImageName('')
       setPreviewImage('')
       onClose()
-    } catch {
-      setSubmitError('Nao foi possivel criar o produto agora.')
+    } catch (error) {
+      setSubmitError(error instanceof Error ? error.message : 'Nao foi possivel criar o produto agora.')
     } finally {
       setIsSubmitting(false)
     }

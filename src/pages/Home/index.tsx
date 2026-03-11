@@ -1,4 +1,3 @@
-import { useNavigate } from 'react-router-dom'
 import HomeAbout from '../../sections/about'
 import HomeContact from '../../sections/contact'
 import HomeFooter from '../../sections/footer'
@@ -10,14 +9,13 @@ import { useAuth } from '../../hooks/useAuth'
 import './HomePage.css'
 
 function HomePage() {
-  const navigate = useNavigate()
   const { getToken, clearToken } = useAuth()
 
   const token = getToken()
 
   const handleLogout = () => {
     clearToken()
-    navigate('/', { replace: true })
+    window.location.replace('/')
   }
 
   if (!token) {
