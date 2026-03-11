@@ -1,4 +1,4 @@
-import { getNameInitial } from '../utils'
+import { getNameInitial } from '../../../utils/string'
 import type { HomeTestimonial } from '../types'
 import IconButton from '../../../components/ui/IconButton'
 

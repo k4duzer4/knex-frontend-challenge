@@ -1,4 +1,4 @@
-import { formatPrice } from '../utils'
+import { formatPrice } from '../../../utils/currency'
 import type { DisplayProduct } from '../types'
 import IconButton from '../../../components/ui/IconButton'
 

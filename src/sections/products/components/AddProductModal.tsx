@@ -2,7 +2,7 @@ import { useEffect, useState, type ChangeEvent, type FormEvent } from 'react'
 import { createPortal } from 'react-dom'
 import IconButton from '../../../components/ui/IconButton'
 import SectionTitleWithLines from '../../../components/ui/SectionTitleWithLines'
-import { formatBrlInput } from '../utils'
+import { formatBrlInput } from '../../../utils/currency'
 
 type AddProductModalProps = {
   isOpen: boolean
