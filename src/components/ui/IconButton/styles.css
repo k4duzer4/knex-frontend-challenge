@@ -1,0 +1,30 @@
+.icon-button {
+  width: 64px;
+  height: 42px;
+  border-radius: 10px;
+  border: 1px solid rgba(101, 51, 33, 0.28);
+  background: #ea96a8;
+  color: var(--brown-700);
+  font-size: 28px;
+  line-height: 1;
+  box-shadow: 0 4px 0 rgba(101, 51, 33, 0.2);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.icon-button:hover {
+  filter: brightness(1.03);
+}
+
+.icon-button:active {
+  transform: translateY(1px);
+}
+
+.icon-button:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+  transform: none;
+}
