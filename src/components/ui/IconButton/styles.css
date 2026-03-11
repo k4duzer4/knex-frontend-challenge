@@ -7,7 +7,7 @@
   color: var(--brown-700);
   font-size: 28px;
   line-height: 1;
-  box-shadow: 0 4px 0 rgba(101, 51, 33, 0.2);
+  box-shadow: var(--shadow-card);
   display: inline-flex;
   align-items: center;
   justify-content: center;

@@ -87,6 +87,7 @@
   padding: 8px 14px;
   font-size: 16px;
   color: #6f5048;
+  box-shadow: var(--shadow-card);
 }
 
 .home-contact__form .home-contact__input--phone {
@@ -108,7 +109,7 @@
   font-size: 16px;
   line-height: 1;
   cursor: pointer;
-  box-shadow: 0 4px 0 rgba(105, 75, 65, 0.28);
+  box-shadow: var(--shadow-card);
   transition: transform 0.2s ease, filter 0.2s ease;
 }
 

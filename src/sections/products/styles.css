@@ -78,7 +78,7 @@
   font-family: var(--font-body);
   padding: 0;
   cursor: pointer;
-  box-shadow: 0 2px 0 rgba(101, 51, 33, 0.2);
+  box-shadow: var(--shadow-card);
 }
 
 .home-products__notice-reload span {
@@ -137,6 +137,7 @@
   line-height: 1;
   display: grid;
   place-items: center;
+  box-shadow: var(--shadow-card);
 }
 
 .home-products__arrow:disabled {
@@ -184,6 +185,7 @@
   font-size: 18px;
   line-height: 1;
   padding: 0;
+  box-shadow: var(--shadow-card);
 }
 
 .home-products__placeholder {
