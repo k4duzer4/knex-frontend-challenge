@@ -55,10 +55,7 @@ export function useProductsCatalog(token: string) {
     }
   }, [token, reloadTick])
 
-  const visibleProducts = useMemo(
-    () => products.slice(0, DEFAULT_VISIBLE_PRODUCTS),
-    [products],
-  )
+  const visibleProducts = useMemo(() => products.slice(0, DEFAULT_VISIBLE_PRODUCTS), [products])
 
   const apiProducts = useMemo(() => mapProductsToDisplay(visibleProducts), [visibleProducts])
 
@@ -84,7 +81,12 @@ export function useProductsCatalog(token: string) {
     setReloadTick((current) => current + 1)
   }
 
-  async function updateProduct(input: { id: string | number; name: string; price: number; index?: number }) {
+  async function updateProduct(input: {
+    id: string | number
+    name: string
+    price: number
+    index?: number
+  }) {
     await updateProductByUser(token, input.id, {
       name: input.name,
       description: input.name,

@@ -27,7 +27,10 @@ function buildUniqueUploadFile(file: File) {
   })
 }
 
-function extractApiErrorMessage(error: unknown, fallbackMessage = 'Nao foi possivel criar o produto agora.') {
+function extractApiErrorMessage(
+  error: unknown,
+  fallbackMessage = 'Nao foi possivel criar o produto agora.',
+) {
   const defaultMessage = fallbackMessage
 
   if (!error || typeof error !== 'object' || !('response' in error)) {
@@ -81,7 +84,7 @@ export async function getProductsByUser(token: string) {
     },
   })
 
-  const products = Array.isArray(data) ? data : data.products ?? []
+  const products = Array.isArray(data) ? data : (data.products ?? [])
 
   return [...products].sort((left, right) => (left.index ?? 0) - (right.index ?? 0))
 }
@@ -141,16 +144,19 @@ export async function updateProductByUser(
   productId: string | number,
   payload: UpdateProductPayload,
 ) {
-  const normalizedProductId = typeof productId === 'string' && /^\d+$/.test(productId)
-    ? Number(productId)
-    : productId
+  const normalizedProductId =
+    typeof productId === 'string' && /^\d+$/.test(productId) ? Number(productId) : productId
 
   try {
-    const { data } = await api.put<{ product?: Product }>(`/products/${normalizedProductId}`, payload, {
-      headers: {
-        Authorization: token,
+    const { data } = await api.put<{ product?: Product }>(
+      `/products/${normalizedProductId}`,
+      payload,
+      {
+        headers: {
+          Authorization: token,
+        },
       },
-    })
+    )
 
     return data.product
   } catch (error) {

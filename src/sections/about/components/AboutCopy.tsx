@@ -11,7 +11,12 @@ function AboutCopy({ content }: AboutCopyProps) {
 
   return (
     <div className="home-about__copy">
-      <SectionTitleWithLines as="p" className="home-about__title-top" lineWidth={113} lineHeight={9}>
+      <SectionTitleWithLines
+        as="p"
+        className="home-about__title-top"
+        lineWidth={113}
+        lineHeight={9}
+      >
         <span className="home-about__title-text">
           {title.prefix} <span>{title.highlight}</span>
         </span>

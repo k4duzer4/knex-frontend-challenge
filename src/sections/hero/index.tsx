@@ -2,9 +2,8 @@ import './styles.css'
 import HeroCopy from './components/HeroCopy'
 import HeroVisual from './components/HeroVisual'
 import { useHeroContent } from './hooks/useHeroContent'
-import type { HomeHeroProps } from './types'
 
-function HomeHero(_: HomeHeroProps) {
+function HomeHero() {
   const { content } = useHeroContent()
 
   return (

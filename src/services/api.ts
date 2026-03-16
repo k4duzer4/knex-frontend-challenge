@@ -23,8 +23,13 @@ api.interceptors.response.use(
     const status = error?.response?.status
     const responseData = error?.response?.data
     const responseText =
-      typeof responseData === 'string' ? responseData.toLowerCase() : JSON.stringify(responseData ?? '').toLowerCase()
-    const isExpiredSession = status === 401 || responseText.includes('tokenexpirederror') || responseText.includes('jwt expired')
+      typeof responseData === 'string'
+        ? responseData.toLowerCase()
+        : JSON.stringify(responseData ?? '').toLowerCase()
+    const isExpiredSession =
+      status === 401 ||
+      responseText.includes('tokenexpirederror') ||
+      responseText.includes('jwt expired')
 
     if (isExpiredSession && typeof window !== 'undefined') {
       deleteCookieValue(TOKEN_COOKIE_KEY, { path: '/', sameSite: 'lax' })

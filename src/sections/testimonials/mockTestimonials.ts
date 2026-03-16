@@ -13,7 +13,8 @@ export const MOCK_TESTIMONIALS: HomeTestimonial[] = [
     id: '2',
     name: 'Carlos Andre',
     role: 'Cliente',
-    message: 'Os sabores sao incriveis, da para sentir o cuidado em cada detalhe. E impossivel comer so um!',
+    message:
+      'Os sabores sao incriveis, da para sentir o cuidado em cada detalhe. E impossivel comer so um!',
     accentClassName: 'home-testimonials__avatar--carlos',
   },
   {

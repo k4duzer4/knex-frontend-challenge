@@ -10,20 +10,44 @@ import type { HomeTestimonial, HomeTestimonialsProps } from './types'
 import IconButton from '../../components/ui/IconButton'
 import SectionTitleWithLines from '../../components/ui/SectionTitleWithLines'
 
-function HomeTestimonials(_: HomeTestimonialsProps) {
+function HomeTestimonials({ isReadOnlyMode }: HomeTestimonialsProps) {
   const [isAddModalOpen, setIsAddModalOpen] = useState(false)
   const [testimonialToEdit, setTestimonialToEdit] = useState<HomeTestimonial | null>(null)
   const [testimonialToDelete, setTestimonialToDelete] = useState<HomeTestimonial | null>(null)
 
-  const { testimonials, addTestimonial, updateTestimonial, deleteTestimonial } = useTestimonialsCatalog()
+  const { testimonials, addTestimonial, updateTestimonial, deleteTestimonial } =
+    useTestimonialsCatalog()
   const hasTestimonials = testimonials.length > 0
+
+  function handleRequestOpenAddModal() {
+    if (isReadOnlyMode) {
+      return
+    }
+    setIsAddModalOpen(true)
+  }
+
+  function handleRequestEdit(testimonial: HomeTestimonial) {
+    if (isReadOnlyMode) {
+      return
+    }
+    setTestimonialToEdit(testimonial)
+  }
+
+  function handleRequestDelete(testimonial: HomeTestimonial) {
+    if (isReadOnlyMode) {
+      return
+    }
+    setTestimonialToDelete(testimonial)
+  }
 
   function handleAddTestimonial(input: { name: string; role: string; message: string }) {
     try {
       addTestimonial(input)
       toast.success('Depoimento adicionado com sucesso.')
     } catch (error) {
-      toast.error(error instanceof Error ? error.message : 'Nao foi possivel adicionar o depoimento agora.')
+      toast.error(
+        error instanceof Error ? error.message : 'Nao foi possivel adicionar o depoimento agora.',
+      )
       throw error
     }
   }
@@ -40,7 +64,9 @@ function HomeTestimonials(_: HomeTestimonialsProps) {
       })
       toast.success('Depoimento atualizado com sucesso.')
     } catch (error) {
-      toast.error(error instanceof Error ? error.message : 'Nao foi possivel atualizar o depoimento agora.')
+      toast.error(
+        error instanceof Error ? error.message : 'Nao foi possivel atualizar o depoimento agora.',
+      )
       throw error
     }
   }
@@ -62,12 +88,12 @@ function HomeTestimonials(_: HomeTestimonialsProps) {
           <SectionTitleWithLines as="h2" className="home-testimonials__title">
             {TESTIMONIALS_SECTION_TITLE}
           </SectionTitleWithLines>
-          {hasTestimonials ? (
+          {!isReadOnlyMode && hasTestimonials ? (
             <IconButton
               icon="+"
               ariaLabel="Adicionar depoimento"
               className="home-testimonials__add-button"
-              onClick={() => setIsAddModalOpen(true)}
+              onClick={handleRequestOpenAddModal}
             />
           ) : null}
         </div>
@@ -77,16 +103,17 @@ function HomeTestimonials(_: HomeTestimonialsProps) {
         {hasTestimonials ? (
           <TestimonialsCarousel
             testimonials={testimonials}
-            onRequestEdit={setTestimonialToEdit}
-            onRequestDelete={setTestimonialToDelete}
+            isReadOnlyMode={isReadOnlyMode}
+            onRequestEdit={handleRequestEdit}
+            onRequestDelete={handleRequestDelete}
           />
-        ) : (
+        ) : !isReadOnlyMode ? (
           <div className="home-testimonials__empty" role="status" aria-live="polite">
             <button
               type="button"
               className="home-testimonials__empty-action"
               aria-label="Adicionar primeiro depoimento"
-              onClick={() => setIsAddModalOpen(true)}
+              onClick={handleRequestOpenAddModal}
             >
               +
             </button>
@@ -95,32 +122,38 @@ function HomeTestimonials(_: HomeTestimonialsProps) {
               Clique no botão para adicionar o primeiro depoimento.
             </p>
           </div>
-        )}
+        ) : null}
       </div>
 
-      <UpsertTestimonialModal
-        isOpen={isAddModalOpen}
-        mode="create"
-        onClose={() => setIsAddModalOpen(false)}
-        onSubmit={handleAddTestimonial}
-      />
+      {!isReadOnlyMode && (
+        <>
+          <UpsertTestimonialModal
+            key={`testimonial-create-${isAddModalOpen ? 'open' : 'closed'}`}
+            isOpen={isAddModalOpen}
+            mode="create"
+            onClose={() => setIsAddModalOpen(false)}
+            onSubmit={handleAddTestimonial}
+          />
 
-      <UpsertTestimonialModal
-        isOpen={!!testimonialToEdit}
-        mode="update"
-        initialName={testimonialToEdit?.name}
-        initialRole={testimonialToEdit?.role}
-        initialMessage={testimonialToEdit?.message}
-        onClose={() => setTestimonialToEdit(null)}
-        onSubmit={handleUpdateTestimonial}
-      />
+          <UpsertTestimonialModal
+            key={testimonialToEdit?.id ?? 'testimonial-update'}
+            isOpen={!!testimonialToEdit}
+            mode="update"
+            initialName={testimonialToEdit?.name}
+            initialRole={testimonialToEdit?.role}
+            initialMessage={testimonialToEdit?.message}
+            onClose={() => setTestimonialToEdit(null)}
+            onSubmit={handleUpdateTestimonial}
+          />
 
-      <DeleteTestimonialModal
-        isOpen={!!testimonialToDelete}
-        testimonialName={testimonialToDelete?.name ?? ''}
-        onCancel={() => setTestimonialToDelete(null)}
-        onConfirm={handleDeleteTestimonial}
-      />
+          <DeleteTestimonialModal
+            isOpen={!!testimonialToDelete}
+            testimonialName={testimonialToDelete?.name ?? ''}
+            onCancel={() => setTestimonialToDelete(null)}
+            onConfirm={handleDeleteTestimonial}
+          />
+        </>
+      )}
     </section>
   )
 }

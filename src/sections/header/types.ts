@@ -1,5 +1,7 @@
 export type HomeHeaderProps = {
   onLogout: () => void
+  isReadOnlyMode: boolean
+  onToggleReadOnlyMode: () => void
 }
 
 export type HeaderNavItem = {

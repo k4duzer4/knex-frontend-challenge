@@ -6,7 +6,7 @@ import { useHeaderContent } from './hooks/useHeaderContent'
 import type { HomeHeaderProps } from './types'
 import { buildHeaderContent } from './utils'
 
-function HomeHeader({ onLogout }: HomeHeaderProps) {
+function HomeHeader({ onLogout, isReadOnlyMode, onToggleReadOnlyMode }: HomeHeaderProps) {
   const { content } = useHeaderContent()
   const headerContent = buildHeaderContent(content)
 
@@ -15,7 +15,19 @@ function HomeHeader({ onLogout }: HomeHeaderProps) {
       <div className="home-header__content">
         <HeaderBrand href={headerContent.brand.href} label={headerContent.brand.label} />
         <HeaderNav ariaLabel={headerContent.navAriaLabel} items={headerContent.navItems} />
-        <HeaderLogoutButton onClick={onLogout} ariaLabel={headerContent.logoutAriaLabel} />
+        <div className="home-header__actions">
+          <button
+            type="button"
+            className={`home-header__readonly ${isReadOnlyMode ? 'is-active' : ''}`}
+            aria-label={
+              isReadOnlyMode ? 'Desativar modo somente leitura' : 'Ativar modo somente leitura'
+            }
+            onClick={onToggleReadOnlyMode}
+          >
+            {isReadOnlyMode ? 'Leitura: ON' : 'Leitura: OFF'}
+          </button>
+          <HeaderLogoutButton onClick={onLogout} ariaLabel={headerContent.logoutAriaLabel} />
+        </div>
       </div>
     </header>
   )

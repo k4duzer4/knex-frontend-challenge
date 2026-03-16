@@ -94,6 +94,9 @@
   position: relative;
   overflow: hidden;
   margin: 0 auto;
+  min-height: 280px;
+  display: flex;
+  align-items: center;
 }
 
 .home-testimonials__track {
@@ -107,7 +110,8 @@
   height: 36px;
   border-radius: 50%;
   border: 0;
-  margin: 0 auto;
+  margin: 0;
+  align-self: center;
   background: #ee9fb0;
   color: var(--brown-700);
   font-size: 23px;
@@ -472,6 +476,7 @@
   .home-testimonials__carousel-viewport {
     grid-area: viewport;
     touch-action: pan-y;
+    min-height: 0;
   }
 
   .home-testimonials__track {

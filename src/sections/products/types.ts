@@ -1,5 +1,6 @@
 export type HomeProductsProps = {
   token: string
+  isReadOnlyMode: boolean
 }
 
 export type DisplayProduct = {

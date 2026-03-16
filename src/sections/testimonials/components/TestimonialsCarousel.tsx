@@ -7,6 +7,7 @@ type CardsPerView = 1 | 2 | 3
 
 type TestimonialsCarouselProps = {
   testimonials: HomeTestimonial[]
+  isReadOnlyMode: boolean
   onRequestEdit: (testimonial: HomeTestimonial) => void
   onRequestDelete: (testimonial: HomeTestimonial) => void
 }
@@ -25,9 +26,16 @@ function getGapByCardsPerView(cardsPerView: CardsPerView) {
   return 26
 }
 
-function TestimonialsCarousel({ testimonials, onRequestEdit, onRequestDelete }: TestimonialsCarouselProps) {
+function TestimonialsCarousel({
+  testimonials,
+  isReadOnlyMode,
+  onRequestEdit,
+  onRequestDelete,
+}: TestimonialsCarouselProps) {
   const [activeIndex, setActiveIndex] = useState(0)
-  const [cardsPerView, setCardsPerView] = useState<CardsPerView>(() => getCardsPerViewByWidth(window.innerWidth))
+  const [cardsPerView, setCardsPerView] = useState<CardsPerView>(() =>
+    getCardsPerViewByWidth(window.innerWidth),
+  )
   const touchStartXRef = useRef<number | null>(null)
 
   useEffect(() => {
@@ -44,27 +52,24 @@ function TestimonialsCarousel({ testimonials, onRequestEdit, onRequestDelete }: 
   const totalTestimonials = testimonials.length
   const maxIndex = Math.max(0, totalTestimonials - cardsPerView)
   const gap = getGapByCardsPerView(cardsPerView)
+  const safeActiveIndex = Math.min(activeIndex, maxIndex)
 
   const cardStep = CARD_WIDTH + gap
   const viewportWidth = cardsPerView * CARD_WIDTH + (cardsPerView - 1) * gap
 
-  useEffect(() => {
-    setActiveIndex((current) => Math.min(current, maxIndex))
-  }, [maxIndex])
+  const canGoPrevious = safeActiveIndex > 0
+  const canGoNext = safeActiveIndex < maxIndex
 
-  const canGoPrevious = activeIndex > 0
-  const canGoNext = activeIndex < maxIndex
-
-  const translateX = useMemo(() => -(activeIndex * cardStep), [activeIndex, cardStep])
+  const translateX = useMemo(() => -(safeActiveIndex * cardStep), [safeActiveIndex, cardStep])
 
   function handlePrevious() {
     if (!canGoPrevious) return
-    setActiveIndex((current) => Math.max(current - 1, 0))
+    setActiveIndex(Math.max(safeActiveIndex - 1, 0))
   }
 
   function handleNext() {
     if (!canGoNext) return
-    setActiveIndex((current) => Math.min(current + 1, maxIndex))
+    setActiveIndex(Math.min(safeActiveIndex + 1, maxIndex))
   }
 
   function handleTouchStart(event: TouchEvent<HTMLDivElement>) {
@@ -122,6 +127,7 @@ function TestimonialsCarousel({ testimonials, onRequestEdit, onRequestDelete }: 
             <TestimonialCard
               key={testimonial.id}
               testimonial={testimonial}
+              isReadOnlyMode={isReadOnlyMode}
               onRequestEdit={onRequestEdit}
               onRequestDelete={onRequestDelete}
             />

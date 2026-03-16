@@ -26,11 +26,11 @@ function parseStoredTestimonials(rawValue: string | null) {
 
       const candidate = item as Record<string, unknown>
       return (
-        typeof candidate.id === 'string'
-        && typeof candidate.name === 'string'
-        && typeof candidate.role === 'string'
-        && typeof candidate.message === 'string'
-        && typeof candidate.accentClassName === 'string'
+        typeof candidate.id === 'string' &&
+        typeof candidate.name === 'string' &&
+        typeof candidate.role === 'string' &&
+        typeof candidate.message === 'string' &&
+        typeof candidate.accentClassName === 'string'
       )
     }) as HomeTestimonial[]
 
@@ -45,7 +45,9 @@ function getInitialTestimonials() {
     return MOCK_TESTIMONIALS
   }
 
-  const storedTestimonials = parseStoredTestimonials(window.localStorage.getItem(TESTIMONIALS_STORAGE_KEY))
+  const storedTestimonials = parseStoredTestimonials(
+    window.localStorage.getItem(TESTIMONIALS_STORAGE_KEY),
+  )
   return storedTestimonials ?? MOCK_TESTIMONIALS
 }
 
@@ -62,7 +64,9 @@ function buildNewTestimonialId() {
 }
 
 export function useTestimonialsCatalog() {
-  const [testimonials, setTestimonials] = useState<HomeTestimonial[]>(() => getInitialTestimonials())
+  const [testimonials, setTestimonials] = useState<HomeTestimonial[]>(() =>
+    getInitialTestimonials(),
+  )
 
   useEffect(() => {
     if (typeof window === 'undefined') {

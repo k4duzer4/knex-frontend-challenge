@@ -11,7 +11,13 @@ export const CONTACT_CONTENT: ContactContent = {
   fields: [
     { id: 'promo-name', name: 'name', type: 'text', label: 'Nome' },
     { id: 'promo-email', name: 'email', type: 'email', label: 'Email' },
-    { id: 'promo-phone', name: 'phone', type: 'tel', label: 'Telefone', className: 'home-contact__input--phone' },
+    {
+      id: 'promo-phone',
+      name: 'phone',
+      type: 'tel',
+      label: 'Telefone',
+      className: 'home-contact__input--phone',
+    },
   ],
   socialItems: [
     { ariaLabel: 'WhatsApp', iconKind: 'whatsapp' },

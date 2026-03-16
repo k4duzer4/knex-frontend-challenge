@@ -8,7 +8,12 @@ type DeleteTestimonialModalProps = {
   onConfirm: () => void
 }
 
-function DeleteTestimonialModal({ isOpen, testimonialName, onCancel, onConfirm }: DeleteTestimonialModalProps) {
+function DeleteTestimonialModal({
+  isOpen,
+  testimonialName,
+  onCancel,
+  onConfirm,
+}: DeleteTestimonialModalProps) {
   useEffect(() => {
     if (!isOpen) return
 
@@ -30,7 +35,11 @@ function DeleteTestimonialModal({ isOpen, testimonialName, onCancel, onConfirm }
   }
 
   const modalContent = (
-    <div className="home-testimonials-delete-modal__backdrop" role="presentation" onClick={onCancel}>
+    <div
+      className="home-testimonials-delete-modal__backdrop"
+      role="presentation"
+      onClick={onCancel}
+    >
       <div
         className="home-testimonials-delete-modal"
         role="dialog"
@@ -38,7 +47,9 @@ function DeleteTestimonialModal({ isOpen, testimonialName, onCancel, onConfirm }
         aria-label={`Confirmar remocao de ${testimonialName}`}
         onClick={(event) => event.stopPropagation()}
       >
-        <p className="home-testimonials-delete-modal__title">Deseja realmente apagar o depoimento?</p>
+        <p className="home-testimonials-delete-modal__title">
+          Deseja realmente apagar o depoimento?
+        </p>
 
         <div className="home-testimonials-delete-modal__actions">
           <button

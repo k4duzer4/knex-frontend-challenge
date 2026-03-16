@@ -6,4 +6,6 @@ export type HomeTestimonial = {
   accentClassName: string
 }
 
-export type HomeTestimonialsProps = Record<string, never>
+export type HomeTestimonialsProps = {
+  isReadOnlyMode: boolean
+}

@@ -11,7 +11,7 @@ import SectionTitleWithLines from '../../components/ui/SectionTitleWithLines'
 import type { DisplayProduct, HomeProductsProps } from './types'
 import './styles.css'
 
-function HomeProducts({ token }: HomeProductsProps) {
+function HomeProducts({ token, isReadOnlyMode }: HomeProductsProps) {
   const [isAddModalOpen, setIsAddModalOpen] = useState(false)
   const [productToEdit, setProductToEdit] = useState<DisplayProduct | null>(null)
   const [productToDelete, setProductToDelete] = useState<DisplayProduct | null>(null)
@@ -20,12 +20,31 @@ function HomeProducts({ token }: HomeProductsProps) {
   const [isCreating, setIsCreating] = useState(false)
   const [isUpdating, setIsUpdating] = useState(false)
   const cardsPerView = useCardsPerView()
-  const { products, isLoading, isRefreshing, requestError, addProduct, deleteProduct, updateProduct, reloadProducts } = useProductsCatalog(token)
+  const {
+    products,
+    isLoading,
+    isRefreshing,
+    requestError,
+    addProduct,
+    deleteProduct,
+    updateProduct,
+    reloadProducts,
+  } = useProductsCatalog(token)
   const hasProducts = products.length > 0
   const showSkeletonOverlay = !isLoading && (isCreating || isUpdating || isDeleting || isRefreshing)
   const showInitialSkeleton = isLoading && !requestError
 
+  function handleRequestOpenAddModal() {
+    if (isReadOnlyMode) {
+      return
+    }
+    setIsAddModalOpen(true)
+  }
+
   function handleOpenDeleteModal(product: DisplayProduct) {
+    if (isReadOnlyMode) {
+      return
+    }
     setDeleteError('')
     setProductToDelete(product)
   }
@@ -40,6 +59,9 @@ function HomeProducts({ token }: HomeProductsProps) {
   }
 
   function handleOpenUpdateModal(product: DisplayProduct) {
+    if (isReadOnlyMode) {
+      return
+    }
     setProductToEdit(product)
   }
 
@@ -65,7 +87,8 @@ function HomeProducts({ token }: HomeProductsProps) {
       })
       toast.success('Produto criado com sucesso.')
     } catch (error) {
-      const message = error instanceof Error ? error.message : 'Nao foi possivel criar o produto agora.'
+      const message =
+        error instanceof Error ? error.message : 'Nao foi possivel criar o produto agora.'
       toast.error(message)
       throw new Error(message)
     } finally {
@@ -85,7 +108,8 @@ function HomeProducts({ token }: HomeProductsProps) {
       toast.success('Produto apagado com sucesso.')
       setProductToDelete(null)
     } catch (error) {
-      const message = error instanceof Error ? error.message : 'Nao foi possivel apagar o produto agora.'
+      const message =
+        error instanceof Error ? error.message : 'Nao foi possivel apagar o produto agora.'
       setDeleteError(message)
       toast.error(message)
     } finally {
@@ -109,7 +133,8 @@ function HomeProducts({ token }: HomeProductsProps) {
       toast.success('Produto atualizado com sucesso.')
       setProductToEdit(null)
     } catch (error) {
-      const message = error instanceof Error ? error.message : 'Nao foi possivel atualizar o produto agora.'
+      const message =
+        error instanceof Error ? error.message : 'Nao foi possivel atualizar o produto agora.'
       toast.error(message)
       throw new Error(message)
     } finally {
@@ -125,26 +150,39 @@ function HomeProducts({ token }: HomeProductsProps) {
             <span className="home-products__title-desktop">Nossos produtos</span>
             <span className="home-products__title-mobile">Produtos</span>
           </SectionTitleWithLines>
-          {hasProducts ? (
+          {!isReadOnlyMode && hasProducts ? (
             <IconButton
               icon="+"
               ariaLabel="Adicionar produto"
               className="home-products__header-button"
-              onClick={() => setIsAddModalOpen(true)}
+              onClick={handleRequestOpenAddModal}
             />
           ) : null}
         </div>
 
         <p className="home-products__subtitle">Conheça nossas opções de gostosuras.</p>
 
-        <FallbackInfo show={!isLoading && !!requestError} message={requestError} onReload={reloadProducts} />
+        <FallbackInfo
+          show={!isLoading && !!requestError}
+          message={requestError}
+          onReload={reloadProducts}
+        />
 
         {showInitialSkeleton ? (
-          <div className="home-products__showcase-shell is-initial-loading" aria-label="Carregando produtos">
+          <div
+            className="home-products__showcase-shell is-initial-loading"
+            aria-label="Carregando produtos"
+          >
             <div className="home-products__skeleton-overlay is-initial" aria-hidden>
-              <div className="home-products__skeleton-track" style={{ gridTemplateColumns: `repeat(${cardsPerView}, 240px)` }}>
+              <div
+                className="home-products__skeleton-track"
+                style={{ gridTemplateColumns: `repeat(${cardsPerView}, 240px)` }}
+              >
                 {Array.from({ length: cardsPerView }).map((_, index) => (
-                  <article className="home-products__skeleton-card" key={`initial-skeleton-${index}`}>
+                  <article
+                    className="home-products__skeleton-card"
+                    key={`initial-skeleton-${index}`}
+                  >
                     <div className="home-products__skeleton-image home-products__skeleton-shimmer" />
                     <div className="home-products__skeleton-details home-products__skeleton-shimmer" />
                   </article>
@@ -159,13 +197,17 @@ function HomeProducts({ token }: HomeProductsProps) {
             <ProductCarousel
               products={products}
               cardsPerView={cardsPerView}
+              isReadOnlyMode={isReadOnlyMode}
               onRequestEdit={handleOpenUpdateModal}
               onRequestDelete={handleOpenDeleteModal}
             />
 
             {showSkeletonOverlay ? (
               <div className="home-products__skeleton-overlay" aria-hidden>
-                <div className="home-products__skeleton-track" style={{ gridTemplateColumns: `repeat(${cardsPerView}, 240px)` }}>
+                <div
+                  className="home-products__skeleton-track"
+                  style={{ gridTemplateColumns: `repeat(${cardsPerView}, 240px)` }}
+                >
                   {Array.from({ length: cardsPerView }).map((_, index) => (
                     <article className="home-products__skeleton-card" key={`skeleton-${index}`}>
                       <div className="home-products__skeleton-image home-products__skeleton-shimmer" />
@@ -179,45 +221,53 @@ function HomeProducts({ token }: HomeProductsProps) {
         ) : null}
 
         {!isLoading && !requestError && !hasProducts ? (
-          <div className="home-products__empty" role="status" aria-live="polite">
-            <button
-              type="button"
-              className="home-products__notice-reload"
-              aria-label="Adicionar primeiro produto"
-              onClick={() => setIsAddModalOpen(true)}
-            >
-              <span aria-hidden>+</span>
-            </button>
-            <h3 className="home-products__notice-title">Nenhum produto cadastrado</h3>
-            <p className="home-products__notice-copy">Clique no botao para cadastrar o primeiro produto.</p>
-          </div>
+          !isReadOnlyMode ? (
+            <div className="home-products__empty" role="status" aria-live="polite">
+              <button
+                type="button"
+                className="home-products__notice-reload"
+                aria-label="Adicionar primeiro produto"
+                onClick={handleRequestOpenAddModal}
+              >
+                <span aria-hidden>+</span>
+              </button>
+              <h3 className="home-products__notice-title">Nenhum produto cadastrado</h3>
+              <p className="home-products__notice-copy">
+                Clique no botao para cadastrar o primeiro produto.
+              </p>
+            </div>
+          ) : null
         ) : null}
       </div>
 
-      <AddProductModal
-        isOpen={isAddModalOpen}
-        onClose={() => setIsAddModalOpen(false)}
-        mode="create"
-        onSubmit={handleCreateProduct}
-      />
+      {!isReadOnlyMode && (
+        <>
+          <AddProductModal
+            isOpen={isAddModalOpen}
+            onClose={() => setIsAddModalOpen(false)}
+            mode="create"
+            onSubmit={handleCreateProduct}
+          />
 
-      <AddProductModal
-        isOpen={!!productToEdit}
-        onClose={handleCloseUpdateModal}
-        mode="update"
-        initialName={productToEdit?.name}
-        initialPrice={productToEdit?.price}
-        onSubmit={handleUpdateProduct}
-      />
+          <AddProductModal
+            isOpen={!!productToEdit}
+            onClose={handleCloseUpdateModal}
+            mode="update"
+            initialName={productToEdit?.name}
+            initialPrice={productToEdit?.price}
+            onSubmit={handleUpdateProduct}
+          />
 
-      <DeleteProductModal
-        isOpen={!!productToDelete}
-        productName={productToDelete?.name ?? ''}
-        isDeleting={isDeleting}
-        errorMessage={deleteError}
-        onCancel={handleCloseDeleteModal}
-        onConfirm={handleConfirmDeleteProduct}
-      />
+          <DeleteProductModal
+            isOpen={!!productToDelete}
+            productName={productToDelete?.name ?? ''}
+            isDeleting={isDeleting}
+            errorMessage={deleteError}
+            onCancel={handleCloseDeleteModal}
+            onConfirm={handleConfirmDeleteProduct}
+          />
+        </>
+      )}
     </section>
   )
 }

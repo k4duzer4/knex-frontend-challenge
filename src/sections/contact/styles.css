@@ -110,7 +110,9 @@
   line-height: 1;
   cursor: pointer;
   box-shadow: var(--shadow-card);
-  transition: transform 0.2s ease, filter 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    filter 0.2s ease;
 }
 
 .home-contact__form button:disabled {

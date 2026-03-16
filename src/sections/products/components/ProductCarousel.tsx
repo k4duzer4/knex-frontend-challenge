@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState, type TouchEvent } from 'react'
+import { useMemo, useRef, useState, type TouchEvent } from 'react'
 import { motion } from 'framer-motion'
 import { CARD_WIDTH } from '../constants'
 import type { CardsPerView, DisplayProduct } from '../types'
@@ -8,38 +8,42 @@ import ProductCard from './ProductCard'
 type ProductCarouselProps = {
   products: DisplayProduct[]
   cardsPerView: CardsPerView
+  isReadOnlyMode: boolean
   onRequestEdit: (product: DisplayProduct) => void
   onRequestDelete: (product: DisplayProduct) => void
 }
 
-function ProductCarousel({ products, cardsPerView, onRequestEdit, onRequestDelete }: ProductCarouselProps) {
+function ProductCarousel({
+  products,
+  cardsPerView,
+  isReadOnlyMode,
+  onRequestEdit,
+  onRequestDelete,
+}: ProductCarouselProps) {
   const [activeIndex, setActiveIndex] = useState(0)
   const touchStartXRef = useRef<number | null>(null)
 
   const totalProducts = products.length
   const maxIndex = Math.max(0, totalProducts - cardsPerView)
   const gap = getGapByCardsPerView(cardsPerView)
+  const safeActiveIndex = Math.min(activeIndex, maxIndex)
 
   const cardStep = CARD_WIDTH + gap
   const viewportWidth = cardsPerView * CARD_WIDTH + (cardsPerView - 1) * gap
 
-  useEffect(() => {
-    setActiveIndex((current) => Math.min(current, maxIndex))
-  }, [maxIndex])
+  const canGoPrevious = safeActiveIndex > 0
+  const canGoNext = safeActiveIndex < maxIndex
 
-  const canGoPrevious = activeIndex > 0
-  const canGoNext = activeIndex < maxIndex
-
-  const translateX = useMemo(() => -(activeIndex * cardStep), [activeIndex, cardStep])
+  const translateX = useMemo(() => -(safeActiveIndex * cardStep), [safeActiveIndex, cardStep])
 
   function handlePrevious() {
     if (!canGoPrevious) return
-    setActiveIndex((current) => Math.max(current - 1, 0))
+    setActiveIndex(Math.max(safeActiveIndex - 1, 0))
   }
 
   function handleNext() {
     if (!canGoNext) return
-    setActiveIndex((current) => Math.min(current + 1, maxIndex))
+    setActiveIndex(Math.min(safeActiveIndex + 1, maxIndex))
   }
 
   function handleTouchStart(event: TouchEvent<HTMLDivElement>) {
@@ -97,6 +101,7 @@ function ProductCarousel({ products, cardsPerView, onRequestEdit, onRequestDelet
             <ProductCard
               key={product.id}
               product={product}
+              isReadOnlyMode={isReadOnlyMode}
               onRequestEdit={onRequestEdit}
               onRequestDelete={onRequestDelete}
             />
