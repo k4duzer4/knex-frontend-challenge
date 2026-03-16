@@ -1,4 +1,5 @@
-import type { FormEvent } from 'react'
+import { useState, type FormEvent } from 'react'
+import { toast } from 'react-toastify'
 import './styles.css'
 import ContactDetails from './components/ContactDetails'
 import ContactForm from './components/ContactForm'
@@ -8,9 +9,20 @@ import type { HomeContactProps } from './types'
 import { buildContactContent } from './utils'
 
 function HomeContact(_: HomeContactProps) {
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const [isSubmitting, setIsSubmitting] = useState(false)
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    event.currentTarget.reset()
+
+    if (isSubmitting) {
+      return
+    }
+
+    setIsSubmitting(true)
+    const formElement = event.currentTarget
+    formElement.reset()
+    setIsSubmitting(false)
+    toast.success('Formulario enviado com sucesso.')
   }
 
   const { content } = useContactContent()
@@ -27,6 +39,7 @@ function HomeContact(_: HomeContactProps) {
             fields={contactContent.fields}
             submitLabel={contactContent.submitLabel}
             onSubmit={handleSubmit}
+            isSubmitting={isSubmitting}
           />
           <ContactDetails
             socialTitle={contactContent.detailsSocialTitle}
