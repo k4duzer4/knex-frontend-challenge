@@ -50,7 +50,7 @@ function RegisterFormCard({ onSwitchToLogin }: RegisterFormCardProps) {
         Login
       </button>
 
-      <div className={`login-card__container ${isSubmitting ? 'login-card__container--loading' : ''}`}>
+      <div className="login-card__container">
         <h2>CADASTRO ADMIN</h2>
 
         <form className="login-card__form" onSubmit={onSubmit} noValidate>
@@ -98,16 +98,6 @@ function RegisterFormCard({ onSwitchToLogin }: RegisterFormCardProps) {
           </p>
         </form>
 
-        {isSubmitting ? (
-          <div className="login-card__skeleton-overlay" aria-hidden>
-            <div className="login-card__skeleton login-card__skeleton--title" />
-            <div className="login-card__skeleton login-card__skeleton--field" />
-            <div className="login-card__skeleton login-card__skeleton--field" />
-            <div className="login-card__skeleton login-card__skeleton--field" />
-            <div className="login-card__skeleton login-card__skeleton--field" />
-            <div className="login-card__skeleton login-card__skeleton--button" />
-          </div>
-        ) : null}
       </div>
     </section>
   )

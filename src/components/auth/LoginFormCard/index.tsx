@@ -44,10 +44,10 @@ function LoginFormCard({ onSwitchToSignUp }: LoginFormCardProps) {
   return (
     <section className="login-card" aria-label="Formulario de login administrativo">
       <button className="login-card__tab" type="button" onClick={onSwitchToSignUp} disabled={isSubmitting}>
-        Sign Up
+        Cadastro
       </button>
 
-      <div className={`login-card__container ${isSubmitting ? 'login-card__container--loading' : ''}`}>
+      <div className="login-card__container">
         <h2>LOGIN ADMIN</h2>
 
         <form className="login-card__form" onSubmit={onSubmit} noValidate>
@@ -79,14 +79,6 @@ function LoginFormCard({ onSwitchToSignUp }: LoginFormCardProps) {
           </p>
         </form>
 
-        {isSubmitting ? (
-          <div className="login-card__skeleton-overlay" aria-hidden>
-            <div className="login-card__skeleton login-card__skeleton--title" />
-            <div className="login-card__skeleton login-card__skeleton--field" />
-            <div className="login-card__skeleton login-card__skeleton--field" />
-            <div className="login-card__skeleton login-card__skeleton--button" />
-          </div>
-        ) : null}
       </div>
     </section>
   )

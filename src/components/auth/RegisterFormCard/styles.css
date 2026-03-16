@@ -1,11 +1,13 @@
 .register-card {
   width: 402px;
-  height: 493px;
+  min-height: 493px;
+  height: auto;
 }
 
 .register-card .login-card__container {
   width: 402px;
-  height: 493px;
+  min-height: 493px;
+  height: auto;
   padding: 30px 42px 20px;
 }
 
