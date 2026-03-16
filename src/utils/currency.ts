@@ -37,3 +37,23 @@ export function parseBrlInputToNumber(value: string) {
 
   return Number(digitsOnly) / 100
 }
+
+export function normalizeApiPrice(value: number | string) {
+  if (typeof value === 'number') {
+    return Number.isInteger(value) ? value / 100 : value
+  }
+
+  const normalized = value.trim()
+
+  if (!normalized) {
+    return 0
+  }
+
+  if (normalized.includes(',') || normalized.includes('.')) {
+    const decimalValue = Number(normalized.replace(/\./g, '').replace(',', '.'))
+    return Number.isFinite(decimalValue) ? decimalValue : 0
+  }
+
+  const centsValue = Number(normalized)
+  return Number.isFinite(centsValue) ? centsValue / 100 : 0
+}

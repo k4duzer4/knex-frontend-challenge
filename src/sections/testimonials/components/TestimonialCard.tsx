@@ -4,12 +4,25 @@ import IconButton from '../../../components/ui/IconButton'
 
 type TestimonialCardProps = {
   testimonial: HomeTestimonial
+  onRequestEdit: (testimonial: HomeTestimonial) => void
+  onRequestDelete: (testimonial: HomeTestimonial) => void
 }
 
-function TestimonialCard({ testimonial }: TestimonialCardProps) {
+function TestimonialCard({ testimonial, onRequestEdit, onRequestDelete }: TestimonialCardProps) {
   return (
     <article className="home-testimonials__card">
-      <IconButton icon="-" className="home-testimonials__remove" ariaLabel={`Remover ${testimonial.name}`} />
+      <IconButton
+        icon="✎"
+        className="home-testimonials__edit"
+        ariaLabel={`Editar ${testimonial.name}`}
+        onClick={() => onRequestEdit(testimonial)}
+      />
+      <IconButton
+        icon="-"
+        className="home-testimonials__remove"
+        ariaLabel={`Remover ${testimonial.name}`}
+        onClick={() => onRequestDelete(testimonial)}
+      />
 
       <div className="home-testimonials__card-head">
         <div className={`home-testimonials__avatar ${testimonial.accentClassName}`} aria-hidden>

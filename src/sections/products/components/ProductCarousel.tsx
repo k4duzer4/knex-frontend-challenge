@@ -14,7 +14,6 @@ type ProductCarouselProps = {
 
 function ProductCarousel({ products, cardsPerView, onRequestEdit, onRequestDelete }: ProductCarouselProps) {
   const [activeIndex, setActiveIndex] = useState(0)
-  const [isSliding, setIsSliding] = useState(false)
 
   const totalProducts = products.length
   const maxIndex = Math.max(0, totalProducts - cardsPerView)
@@ -27,8 +26,8 @@ function ProductCarousel({ products, cardsPerView, onRequestEdit, onRequestDelet
     setActiveIndex((current) => Math.min(current, maxIndex))
   }, [maxIndex])
 
-  const canGoPrevious = activeIndex > 0 && !isSliding
-  const canGoNext = activeIndex < maxIndex && !isSliding
+  const canGoPrevious = activeIndex > 0
+  const canGoNext = activeIndex < maxIndex
 
   const translateX = useMemo(() => -(activeIndex * cardStep), [activeIndex, cardStep])
 
@@ -61,8 +60,6 @@ function ProductCarousel({ products, cardsPerView, onRequestEdit, onRequestDelet
           className="home-products__track"
           animate={{ x: translateX }}
           transition={{ type: 'spring', stiffness: 130, damping: 24, mass: 0.9 }}
-          onAnimationStart={() => setIsSliding(true)}
-          onAnimationComplete={() => setIsSliding(false)}
         >
           {products.map((product) => (
             <ProductCard

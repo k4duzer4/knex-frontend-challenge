@@ -1,6 +1,7 @@
 import { BREAKPOINTS, CAROUSEL_GAP } from './constants'
 import type { CardsPerView, DisplayProduct } from './types'
 import type { Product } from '../../types/product'
+import { normalizeApiPrice } from '../../utils/currency'
 import { resolveApiAssetUrl } from '../../utils/url'
 
 export function mapProductsToDisplay(products: Product[]): DisplayProduct[] {
@@ -9,7 +10,7 @@ export function mapProductsToDisplay(products: Product[]): DisplayProduct[] {
     .map((product) => ({
       id: product.id,
       name: product.name,
-      price: product.price,
+      price: normalizeApiPrice(product.price),
       image: resolveApiAssetUrl(product.file?.path),
       ...(typeof product.index === 'number' ? { index: product.index } : {}),
     }))
