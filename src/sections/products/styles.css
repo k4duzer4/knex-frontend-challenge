@@ -342,7 +342,7 @@
   background: #e8e0e2;
   border: 1px solid rgba(105, 75, 65, 0.52);
   border-radius: 34px;
-  box-shadow: 0 16px 34px rgba(54, 27, 21, 0.34);
+  box-shadow: var(--shadow-card);
 }
 
 .home-products-modal__form {

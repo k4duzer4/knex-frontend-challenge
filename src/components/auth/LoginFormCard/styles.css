@@ -29,7 +29,7 @@
 .login-card__tab:hover {
   transform: translateY(-2px);
   filter: brightness(1.03);
-  box-shadow: 0 2px 6px rgba(101, 51, 33, 0.2);
+  box-shadow: var(--shadow-card);
 }
 
 .login-card__tab:active {

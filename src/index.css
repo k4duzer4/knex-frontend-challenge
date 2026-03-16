@@ -11,7 +11,7 @@
   --black-soft: #090909;
   --radius-lg: 30px;
   --radius-md: 10px;
-  --shadow-card: 0 4px 6px rgba(101, 51, 33, 0.35);
+  --shadow-card: 0 4px 4px 0 rgba(101, 51, 33, 0.5);
   --font-title: 'Bahiana', cursive;
   --font-body: 'Roboto', sans-serif;
   --font-brand: 'Sevillana', cursive;
@@ -29,6 +29,10 @@
 
 * {
   box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
