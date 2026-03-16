@@ -33,12 +33,39 @@
 }
 
 .home-header__nav a {
+  position: relative;
   text-decoration: none;
   color: var(--brown-700);
   text-transform: uppercase;
   font-family: var(--font-title);
   letter-spacing: 0.8px;
   font-size: 32px;
+  line-height: 1;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.home-header__nav a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -6px;
+  height: 2px;
+  background: rgba(101, 51, 33, 0.48);
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.2s ease;
+}
+
+.home-header__nav a:hover,
+.home-header__nav a:focus-visible {
+  color: #7a402e;
+  transform: translateY(-2px);
+}
+
+.home-header__nav a:hover::after,
+.home-header__nav a:focus-visible::after {
+  transform: scaleX(1);
 }
 
 .home-header__logout {
@@ -50,17 +77,48 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  gap: 8px;
   padding: 0;
-  line-height: 0;
+  line-height: 1;
+  margin-top: -2px;
   cursor: pointer;
   box-shadow: var(--shadow-card);
+  overflow: hidden;
+  transition: width 0.25s ease, filter 0.2s ease, transform 0.2s ease;
+}
+
+.home-header__logout:hover,
+.home-header__logout:focus-visible {
+  width: 154px;
+  justify-content: flex-start;
+  padding: 0 12px;
+}
+
+.home-header__logout-label {
+  width: 0;
+  opacity: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  font-family: var(--font-title);
+  font-size: 32px;
+  line-height: 1;
+  letter-spacing: 0.6px;
+  color: var(--brown-700);
+  transition: opacity 0.18s ease, width 0.25s ease;
+}
+
+.home-header__logout:hover .home-header__logout-label,
+.home-header__logout:focus-visible .home-header__logout-label {
+  width: 68px;
+  opacity: 1;
 }
 
 .home-header__logout svg {
   width: 35px;
   height: 30px;
   display: block;
-  transform: translateX(1px);
+  transform: translateX(0);
+  flex-shrink: 0;
 }
 
 @media (max-width: 920px) {
