@@ -27,8 +27,8 @@ function buildUniqueUploadFile(file: File) {
   })
 }
 
-function extractApiErrorMessage(error: unknown) {
-  const defaultMessage = 'Nao foi possivel criar o produto agora.'
+function extractApiErrorMessage(error: unknown, fallbackMessage = 'Nao foi possivel criar o produto agora.') {
+  const defaultMessage = fallbackMessage
 
   if (!error || typeof error !== 'object' || !('response' in error)) {
     return defaultMessage
@@ -47,6 +47,14 @@ function extractApiErrorMessage(error: unknown) {
 
   if (responseText.includes('jwt expired') || responseText.includes('tokenexpirederror')) {
     return 'Sua sessao expirou. Faca login novamente.'
+  }
+
+  if (responseText.includes('you are not the owner of this product')) {
+    return 'Voce nao pode apagar este produto.'
+  }
+
+  if (responseText.includes('product not found')) {
+    return 'Produto nao encontrado. Atualize a pagina e tente novamente.'
   }
 
   return defaultMessage
@@ -103,5 +111,20 @@ export async function createProductByUser(token: string, payload: CreateProductP
     return data.product
   } catch (error) {
     throw new Error(extractApiErrorMessage(error))
+  }
+}
+
+export async function deleteProductByUser(token: string, productId: string | number) {
+  try {
+    await api.delete(`/products/${productId}`, {
+      headers: {
+        Authorization: token,
+      },
+      data: {
+        product_id: productId,
+      },
+    })
+  } catch (error) {
+    throw new Error(extractApiErrorMessage(error, 'Nao foi possivel apagar o produto agora.'))
   }
 }

@@ -16,8 +16,10 @@
   --font-body: 'Roboto', sans-serif;
   --font-brand: 'Sevillana', cursive;
   --toastify-color-progress-success: #f69eac;
+  --toastify-color-progress-error: #a24d5e;
   --toastify-color-progress-light: #f69eac;
   --toastify-color-success: #f69eac;
+  --toastify-color-error: #f3b0bd;
   font-family: var(--font-body);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -76,6 +78,20 @@ body {
 
 .Toastify__progress-bar-theme--light.Toastify__progress-bar--success {
   background: #f69eac !important;
+}
+
+.Toastify__toast-theme--light.Toastify__toast--error {
+  background: #f7e4e8;
+  color: #6b3c44;
+  border-color: #a24d5e;
+}
+
+.Toastify__toast-theme--light.Toastify__toast--error .Toastify__toast-icon svg {
+  fill: #a24d5e;
+}
+
+.Toastify__toast-theme--light.Toastify__toast--error .Toastify__progress-bar {
+  background: #a24d5e !important;
 }
 
 @media (max-width: 768px) {

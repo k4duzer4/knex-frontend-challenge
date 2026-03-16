@@ -4,13 +4,19 @@ import IconButton from '../../../components/ui/IconButton'
 
 type ProductCardProps = {
   product: DisplayProduct
+  onRequestDelete: (product: DisplayProduct) => void
 }
 
-function ProductCard({ product }: ProductCardProps) {
+function ProductCard({ product, onRequestDelete }: ProductCardProps) {
   return (
     <article className="home-products__card">
       <div className="home-products__image-wrapper">
-        <IconButton icon="-" className="home-products__remove" ariaLabel={`Remover ${product.name}`} />
+        <IconButton
+          icon="-"
+          className="home-products__remove"
+          ariaLabel={`Remover ${product.name}`}
+          onClick={() => onRequestDelete(product)}
+        />
 
         <img src={product.image} alt={product.name} loading="lazy" />
       </div>

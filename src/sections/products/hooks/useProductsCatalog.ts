@@ -1,5 +1,10 @@
-import { useEffect, useMemo, useState } from 'react'
-import { createProductByUser, getProductsByUser, uploadProductFile } from '../../../services/productService'
+import { useEffect, useMemo, useRef, useState } from 'react'
+import {
+  createProductByUser,
+  deleteProductByUser,
+  getProductsByUser,
+  uploadProductFile,
+} from '../../../services/productService'
 import type { Product } from '../../../types/product'
 import { DEFAULT_VISIBLE_PRODUCTS } from '../constants'
 import { mapProductsToDisplay } from '../utils'
@@ -7,20 +12,28 @@ import { mapProductsToDisplay } from '../utils'
 export function useProductsCatalog(token: string) {
   const [products, setProducts] = useState<Product[]>([])
   const [isLoading, setIsLoading] = useState(true)
+  const [isRefreshing, setIsRefreshing] = useState(false)
   const [requestError, setRequestError] = useState('')
   const [reloadTick, setReloadTick] = useState(0)
+  const hasLoadedOnceRef = useRef(false)
 
   useEffect(() => {
     let isMounted = true
 
     async function loadProducts() {
       try {
-        setIsLoading(true)
+        if (!hasLoadedOnceRef.current) {
+          setIsLoading(true)
+        } else {
+          setIsRefreshing(true)
+        }
+
         setRequestError('')
         const response = await getProductsByUser(token)
 
         if (isMounted) {
           setProducts(response)
+          hasLoadedOnceRef.current = true
         }
       } catch {
         if (isMounted) {
@@ -29,6 +42,7 @@ export function useProductsCatalog(token: string) {
       } finally {
         if (isMounted) {
           setIsLoading(false)
+          setIsRefreshing(false)
         }
       }
     }
@@ -60,11 +74,18 @@ export function useProductsCatalog(token: string) {
     setReloadTick((current) => current + 1)
   }
 
+  async function removeProduct(productId: string | number) {
+    await deleteProductByUser(token, productId)
+    setReloadTick((current) => current + 1)
+  }
+
   return {
     isLoading,
+    isRefreshing,
     requestError,
     products: apiProducts,
     addProduct,
+    deleteProduct: removeProduct,
     reloadProducts: () => setReloadTick((current) => current + 1),
   }
 }
