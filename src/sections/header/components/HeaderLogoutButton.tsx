@@ -6,6 +6,9 @@ type HeaderLogoutButtonProps = {
 function HeaderLogoutButton({ onClick, ariaLabel }: HeaderLogoutButtonProps) {
   return (
     <button className="home-header__logout" type="button" onClick={onClick} aria-label={ariaLabel}>
+      <span className="home-header__logout-label" aria-hidden="true">
+        SAIR
+      </span>
       <svg
         width="40"
         height="35"

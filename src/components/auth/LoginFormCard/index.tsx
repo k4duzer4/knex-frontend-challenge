@@ -43,8 +43,13 @@ function LoginFormCard({ onSwitchToSignUp }: LoginFormCardProps) {
 
   return (
     <section className="login-card" aria-label="Formulario de login administrativo">
-      <button className="login-card__tab" type="button" onClick={onSwitchToSignUp}>
-        Sign Up
+      <button
+        className="login-card__tab"
+        type="button"
+        onClick={onSwitchToSignUp}
+        disabled={isSubmitting}
+      >
+        Cadastro
       </button>
 
       <div className="login-card__container">
@@ -71,10 +76,7 @@ function LoginFormCard({ onSwitchToSignUp }: LoginFormCardProps) {
             {isSubmitting ? 'Entrando...' : 'Logar'}
           </PrimaryButton>
 
-          <p
-            className="login-card__status login-card__status--error"
-            role="alert"
-          >
+          <p className="login-card__status login-card__status--error" role="alert">
             {requestError}
           </p>
         </form>

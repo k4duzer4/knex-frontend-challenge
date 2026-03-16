@@ -1,33 +1,8 @@
 import { BREAKPOINTS, CAROUSEL_GAP } from './constants'
 import type { CardsPerView, DisplayProduct } from './types'
 import type { Product } from '../../types/product'
-
-const appEnv = import.meta as ImportMeta & {
-  env?: {
-    VITE_API_BASE_URL?: string
-  }
-}
-
-export function getImageUrl(path: string | undefined) {
-  if (!path) return ''
-  if (path.startsWith('http://') || path.startsWith('https://')) return path
-
-  const baseUrl = appEnv.env?.VITE_API_BASE_URL ?? 'https://knex.zernis.space'
-  return `${baseUrl}/${path.replace(/^\/+/, '')}`
-}
-
-export function formatPrice(value: number | string) {
-  const numeric = typeof value === 'number' ? value : Number(value)
-
-  if (Number.isNaN(numeric)) {
-    return 'Preço indisponível'
-  }
-
-  return numeric.toLocaleString('pt-BR', {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
-  })
-}
+import { normalizeApiPrice } from '../../utils/currency'
+import { resolveApiAssetUrl } from '../../utils/url'
 
 export function mapProductsToDisplay(products: Product[]): DisplayProduct[] {
   return products
@@ -35,8 +10,9 @@ export function mapProductsToDisplay(products: Product[]): DisplayProduct[] {
     .map((product) => ({
       id: product.id,
       name: product.name,
-      price: product.price,
-      image: getImageUrl(product.file?.path),
+      price: normalizeApiPrice(product.price),
+      image: resolveApiAssetUrl(product.file?.path),
+      ...(typeof product.index === 'number' ? { index: product.index } : {}),
     }))
 }
 

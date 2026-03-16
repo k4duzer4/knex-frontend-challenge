@@ -1,6 +1,8 @@
 import ContactSocialIcon from './ContactSocialIcon'
 import type { ContactSocialItem } from '../types'
 
+const KNEX_INSTAGRAM_URL = 'https://www.instagram.com/knexjr/'
+
 type ContactDetailsProps = {
   socialTitle: string
   socialItems: ContactSocialItem[]
@@ -15,9 +17,16 @@ function ContactDetails({ socialTitle, socialItems, hoursTitle, hoursItems }: Co
         <h3>{socialTitle}</h3>
         <div className="home-contact__social-icons" aria-label="Redes sociais">
           {socialItems.map((item) => (
-            <button key={item.ariaLabel} type="button" className="home-contact__social-icon" aria-label={item.ariaLabel}>
+            <a
+              key={item.ariaLabel}
+              className="home-contact__social-icon"
+              aria-label={item.ariaLabel}
+              href={KNEX_INSTAGRAM_URL}
+              target="_blank"
+              rel="noreferrer noopener"
+            >
               <ContactSocialIcon kind={item.iconKind} />
-            </button>
+            </a>
           ))}
         </div>
       </div>

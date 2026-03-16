@@ -10,13 +10,16 @@
   font-size: 16px;
   font-weight: 500;
   cursor: pointer;
-  transition: transform 0.2s ease, filter 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    filter 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .primary-button:hover {
   transform: translateY(-2px);
   filter: brightness(1.03);
-  box-shadow: 0 5px 10px rgba(101, 51, 33, 0.28);
+  box-shadow: var(--shadow-card);
 }
 
 .primary-button:active {

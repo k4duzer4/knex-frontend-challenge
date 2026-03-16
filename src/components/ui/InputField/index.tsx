@@ -11,12 +11,7 @@ function InputField({ id, label, error, className, ...inputProps }: InputFieldPr
   return (
     <div className="input-field">
       <label htmlFor={id}>{label}</label>
-      <input
-        id={id}
-        className={className}
-        aria-invalid={Boolean(error)}
-        {...inputProps}
-      />
+      <input id={id} className={className} aria-invalid={Boolean(error)} {...inputProps} />
       <span className="input-field__error" role="alert">
         {error ?? ''}
       </span>

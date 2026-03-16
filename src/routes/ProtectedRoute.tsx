@@ -1,15 +1,13 @@
 import { Navigate } from 'react-router-dom'
 import type { ReactNode } from 'react'
-import { getAuthTokenFromCookie } from '../hooks/useAuth'
+import { hasValidAuthToken } from '../utils/auth'
 
 type ProtectedRouteProps = {
   children: ReactNode
 }
 
 function ProtectedRoute({ children }: ProtectedRouteProps) {
-  const token = getAuthTokenFromCookie()
-
-  if (!token) {
+  if (!hasValidAuthToken()) {
     return <Navigate to="/" replace />
   }
 

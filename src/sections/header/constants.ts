@@ -9,6 +9,6 @@ export const HEADER_CONTENT: HeaderContent = {
     { label: 'Depoimentos', href: '#testimonials' },
     { label: 'Contato', href: '#contact' },
   ],
-  navAriaLabel: 'Navegacao principal da loja',
+  navAriaLabel: 'Navegação principal da loja',
   logoutAriaLabel: 'Sair da conta',
 }

@@ -45,8 +45,16 @@ function RegisterFormCard({ onSwitchToLogin }: RegisterFormCardProps) {
   })
 
   return (
-    <section className="login-card register-card" aria-label="Formulario de cadastro administrativo">
-      <button className="login-card__tab" type="button" onClick={onSwitchToLogin}>
+    <section
+      className="login-card register-card"
+      aria-label="Formulario de cadastro administrativo"
+    >
+      <button
+        className="login-card__tab"
+        type="button"
+        onClick={onSwitchToLogin}
+        disabled={isSubmitting}
+      >
         Login
       </button>
 
@@ -90,10 +98,7 @@ function RegisterFormCard({ onSwitchToLogin }: RegisterFormCardProps) {
             {isSubmitting ? 'Cadastrando...' : 'Cadastrar'}
           </PrimaryButton>
 
-          <p
-            className="login-card__status login-card__status--error"
-            role="alert"
-          >
+          <p className="login-card__status login-card__status--error" role="alert">
             {requestError}
           </p>
         </form>

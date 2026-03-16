@@ -34,4 +34,5 @@ export type ContactFormProps = {
   fields: ContactField[]
   submitLabel: string
   onSubmit: FormEventHandler<HTMLFormElement>
+  isSubmitting?: boolean
 }

@@ -1,11 +1,13 @@
 .register-card {
   width: 402px;
-  height: 493px;
+  min-height: 493px;
+  height: auto;
 }
 
 .register-card .login-card__container {
   width: 402px;
-  height: 493px;
+  min-height: 493px;
+  height: auto;
   padding: 30px 42px 20px;
 }
 
@@ -20,6 +22,35 @@
 
 .register-card .login-card__form .primary-button {
   margin-top: 4px;
+}
+
+@media (max-width: 1440px) {
+  .register-card {
+    width: 386px;
+  }
+
+  .register-card .login-card__container {
+    width: 386px;
+  }
+
+  .register-card .login-card__container h2 {
+    font-size: 38px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .register-card {
+    width: 370px;
+  }
+
+  .register-card .login-card__container {
+    width: 370px;
+    padding: 30px 26px 20px;
+  }
+
+  .register-card .login-card__container h2 {
+    font-size: 34px;
+  }
 }
 
 @media (max-width: 500px) {

@@ -1,11 +1,11 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
-import { getAuthTokenFromCookie } from '../hooks/useAuth'
+import { hasValidAuthToken } from '../utils/auth'
 import LoginPage from '../pages/Login'
 import HomePage from '../pages/Home'
 import ProtectedRoute from './ProtectedRoute'
 
 function AppRouter() {
-  const isAuthenticated = Boolean(getAuthTokenFromCookie())
+  const isAuthenticated = hasValidAuthToken()
 
   return (
     <BrowserRouter>

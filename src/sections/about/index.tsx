@@ -2,9 +2,8 @@ import './styles.css'
 import AboutCopy from './components/AboutCopy'
 import AboutVisual from './components/AboutVisual'
 import { useAboutContent } from './hooks/useAboutContent'
-import type { HomeAboutProps } from './types'
 
-function HomeAbout(_: HomeAboutProps) {
+function HomeAbout() {
   const { content } = useAboutContent()
 
   return (
