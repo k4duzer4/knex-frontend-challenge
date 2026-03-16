@@ -74,6 +74,54 @@
   text-align: left;
 }
 
+@media (max-width: 1440px) {
+  .home-about {
+    min-height: 540px;
+  }
+
+  .home-about__content {
+    width: min(1120px, calc(100% - 40px));
+    gap: clamp(20px, 4.2vw, 60px);
+  }
+
+  .home-about__image-wrap {
+    width: 280px;
+  }
+
+  .home-about__title-text,
+  .home-about h2 {
+    font-size: 42px;
+  }
+
+  .home-about__description {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 1280px) {
+  .home-about {
+    min-height: 500px;
+  }
+
+  .home-about__content {
+    grid-template-columns: minmax(220px, 280px) 1fr;
+  }
+
+  .home-about__title-text,
+  .home-about h2 {
+    font-size: 36px;
+  }
+
+  .home-about__divider {
+    margin: 14px auto 12px;
+  }
+
+  .home-about__description {
+    font-size: 17px;
+    line-height: 1.4;
+  }
+}
+
 @media (max-width: 900px) {
   .home-about {
     min-height: auto;

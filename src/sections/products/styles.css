@@ -29,6 +29,10 @@
   font-family: var(--font-title);
 }
 
+.home-products__title-mobile {
+  display: none;
+}
+
 .home-products__subtitle {
   margin: 10px 0 0;
   text-align: center;
@@ -572,6 +576,46 @@
   font-size: 12px;
 }
 
+@media (max-width: 1440px) {
+  .home-products {
+    min-height: 600px;
+    padding: 84px 0;
+  }
+
+  .home-products__content {
+    width: min(1120px, calc(100% - 40px));
+  }
+
+  .home-products__title .section-title-with-lines__text {
+    font-size: 42px;
+  }
+
+  .home-products__showcase {
+    gap: 20px;
+  }
+}
+
+@media (max-width: 1280px) {
+  .home-products {
+    padding: 72px 0;
+  }
+
+  .home-products__title .section-title-with-lines__text {
+    font-size: 36px;
+  }
+
+  .home-products__subtitle {
+    margin-top: 8px;
+    font-size: 15px;
+  }
+
+  .home-products__showcase {
+    margin-top: 24px;
+    gap: 16px;
+    grid-template-columns: 44px 1fr 44px;
+  }
+}
+
 @media (max-width: 960px) {
   .home-products {
     min-height: auto;
@@ -582,21 +626,40 @@
     width: min(1120px, calc(100% - 24px));
   }
 
+  .home-products__header {
+    display: block;
+  }
+
   .home-products__subtitle {
     font-size: 16px;
   }
 
   .home-products__showcase {
-    grid-template-columns: 1fr;
-    gap: 18px;
+    margin-top: 24px;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      'viewport viewport'
+      'prev next';
+    gap: 14px;
   }
 
   .home-products__skeleton-track {
     gap: 20px;
   }
 
-  .home-products__arrow {
-    display: none;
+  .home-products__showcase > .home-products__arrow:first-child {
+    grid-area: prev;
+    justify-self: end;
+  }
+
+  .home-products__showcase > .home-products__arrow:last-child {
+    grid-area: next;
+    justify-self: start;
+  }
+
+  .home-products__carousel-viewport {
+    grid-area: viewport;
+    touch-action: pan-y;
   }
 
   .home-products__track {
@@ -604,9 +667,10 @@
   }
 
   .home-products__header-button {
-    right: 50%;
-    transform: translate(50%, 56px);
-    top: 0;
+    position: static;
+    display: block;
+    transform: none;
+    margin: 10px auto 0;
   }
 
   .home-products-modal__form {
@@ -643,12 +707,20 @@
 }
 
 @media (max-width: 700px) {
+  .home-products__title-desktop {
+    display: none;
+  }
+
+  .home-products__title-mobile {
+    display: inline;
+  }
+
   .home-products__title .section-title-with-lines__text {
     font-size: clamp(36px, 10vw, 48px);
   }
 
   .home-products__subtitle {
-    margin-top: 52px;
+    margin-top: 12px;
     font-size: 16px;
   }
 
@@ -663,7 +735,7 @@
   .home-products__header-button {
     width: 56px;
     height: 38px;
-    transform: translate(50%, 50px);
+    margin-top: 8px;
   }
 
   .home-products__track {

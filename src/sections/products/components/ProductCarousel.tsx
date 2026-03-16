@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState, type TouchEvent } from 'react'
 import { motion } from 'framer-motion'
 import { CARD_WIDTH } from '../constants'
 import type { CardsPerView, DisplayProduct } from '../types'
@@ -14,6 +14,7 @@ type ProductCarouselProps = {
 
 function ProductCarousel({ products, cardsPerView, onRequestEdit, onRequestDelete }: ProductCarouselProps) {
   const [activeIndex, setActiveIndex] = useState(0)
+  const touchStartXRef = useRef<number | null>(null)
 
   const totalProducts = products.length
   const maxIndex = Math.max(0, totalProducts - cardsPerView)
@@ -41,6 +42,32 @@ function ProductCarousel({ products, cardsPerView, onRequestEdit, onRequestDelet
     setActiveIndex((current) => Math.min(current + 1, maxIndex))
   }
 
+  function handleTouchStart(event: TouchEvent<HTMLDivElement>) {
+    touchStartXRef.current = event.touches[0]?.clientX ?? null
+  }
+
+  function handleTouchEnd(event: TouchEvent<HTMLDivElement>) {
+    const touchStartX = touchStartXRef.current
+    if (touchStartX === null) return
+
+    const touchEndX = event.changedTouches[0]?.clientX ?? touchStartX
+    const deltaX = touchEndX - touchStartX
+    const swipeThreshold = 36
+
+    if (Math.abs(deltaX) < swipeThreshold) {
+      touchStartXRef.current = null
+      return
+    }
+
+    if (deltaX < 0) {
+      handleNext()
+    } else {
+      handlePrevious()
+    }
+
+    touchStartXRef.current = null
+  }
+
   return (
     <div className="home-products__showcase">
       <motion.button
@@ -55,7 +82,12 @@ function ProductCarousel({ products, cardsPerView, onRequestEdit, onRequestDelet
         &lt;
       </motion.button>
 
-      <div className="home-products__carousel-viewport" style={{ width: `${viewportWidth}px` }}>
+      <div
+        className="home-products__carousel-viewport"
+        style={{ width: `${viewportWidth}px` }}
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
+      >
         <motion.div
           className="home-products__track"
           animate={{ x: translateX }}

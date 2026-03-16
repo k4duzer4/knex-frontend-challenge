@@ -89,6 +89,37 @@
   color: #b43a53;
 }
 
+@media (max-width: 1440px) {
+  .login-card,
+  .login-card__container {
+    width: 386px;
+  }
+
+  .login-card__container h2 {
+    font-size: 44px;
+    margin-bottom: 24px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .login-card,
+  .login-card__container {
+    width: 370px;
+  }
+
+  .login-card__tab {
+    right: 86px;
+  }
+
+  .login-card__container {
+    padding: 44px 26px 30px;
+  }
+
+  .login-card__form {
+    width: min(318px, 100%);
+  }
+}
+
 @media (max-width: 1024px) {
   .login-card {
     margin: 0 auto;
@@ -97,9 +128,25 @@
 
 @media (max-width: 500px) {
   .login-card__tab {
-    right: 50%;
-    transform: translateX(50%);
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
     width: 150px;
+    transition: none;
+  }
+
+  .login-card__tab:hover {
+    transform: translateX(-50%) !important;
+    filter: none;
+    box-shadow: var(--shadow-card);
+  }
+
+  .login-card__tab:active {
+    transform: translateX(-50%) !important;
+  }
+
+  .login-card__tab:focus-visible {
+    transform: translateX(-50%) !important;
   }
 
   .login-card__container {

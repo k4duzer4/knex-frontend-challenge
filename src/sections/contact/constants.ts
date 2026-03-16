@@ -7,7 +7,7 @@ export const CONTACT_CONTENT: ContactContent = {
   submitLabel: 'Enviar',
   detailsSocialTitle: 'Redes sociais',
   detailsHoursTitle: 'Horário de funcionamento',
-  detailsHoursItems: ['8h ás 21h (exceto segunda)', 'Não abrimos feriados'],
+  detailsHoursItems: ['8h às 21h (exceto segunda)', 'Não abrimos feriados'],
   fields: [
     { id: 'promo-name', name: 'name', type: 'text', label: 'Nome' },
     { id: 'promo-email', name: 'email', type: 'email', label: 'Email' },

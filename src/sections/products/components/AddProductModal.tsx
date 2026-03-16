@@ -202,7 +202,7 @@ function AddProductModal({
             <IconButton
               type="submit"
               icon={isCreateMode ? '+' : '✓'}
-              ariaLabel={isCreateMode ? 'Confirmar adicao de produto' : 'Confirmar atualizacao de produto'}
+              ariaLabel={isCreateMode ? 'Confirmar adição de produto' : 'Confirmar atualização de produto'}
               className="home-products-modal__submit"
               disabled={isSubmitting}
             />

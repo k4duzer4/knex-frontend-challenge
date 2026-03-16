@@ -46,6 +46,33 @@
   color: var(--pink-300);
 }
 
+@media (max-width: 1440px) {
+  .auth-brand__title span,
+  .auth-brand__title strong {
+    font-size: 168px;
+  }
+
+  .auth-brand__subtitle {
+    font-size: 40px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .auth-brand__title span,
+  .auth-brand__title strong {
+    font-size: 148px;
+  }
+
+  .auth-brand__title strong {
+    margin-top: -1.35rem;
+  }
+
+  .auth-brand__subtitle {
+    margin-top: 0.9rem;
+    font-size: 34px;
+  }
+}
+
 @keyframes auth-brand-float-title {
   0% {
     transform: translateY(0);

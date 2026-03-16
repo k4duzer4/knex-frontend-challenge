@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState, type TouchEvent } from 'react'
 import { motion } from 'framer-motion'
 import type { HomeTestimonial } from '../types'
 import TestimonialCard from './TestimonialCard'
@@ -28,6 +28,7 @@ function getGapByCardsPerView(cardsPerView: CardsPerView) {
 function TestimonialsCarousel({ testimonials, onRequestEdit, onRequestDelete }: TestimonialsCarouselProps) {
   const [activeIndex, setActiveIndex] = useState(0)
   const [cardsPerView, setCardsPerView] = useState<CardsPerView>(() => getCardsPerViewByWidth(window.innerWidth))
+  const touchStartXRef = useRef<number | null>(null)
 
   useEffect(() => {
     function handleResize() {
@@ -66,6 +67,32 @@ function TestimonialsCarousel({ testimonials, onRequestEdit, onRequestDelete }: 
     setActiveIndex((current) => Math.min(current + 1, maxIndex))
   }
 
+  function handleTouchStart(event: TouchEvent<HTMLDivElement>) {
+    touchStartXRef.current = event.touches[0]?.clientX ?? null
+  }
+
+  function handleTouchEnd(event: TouchEvent<HTMLDivElement>) {
+    const touchStartX = touchStartXRef.current
+    if (touchStartX === null) return
+
+    const touchEndX = event.changedTouches[0]?.clientX ?? touchStartX
+    const deltaX = touchEndX - touchStartX
+    const swipeThreshold = 36
+
+    if (Math.abs(deltaX) < swipeThreshold) {
+      touchStartXRef.current = null
+      return
+    }
+
+    if (deltaX < 0) {
+      handleNext()
+    } else {
+      handlePrevious()
+    }
+
+    touchStartXRef.current = null
+  }
+
   return (
     <div className="home-testimonials__showcase">
       <motion.button
@@ -80,7 +107,12 @@ function TestimonialsCarousel({ testimonials, onRequestEdit, onRequestDelete }: 
         &lt;
       </motion.button>
 
-      <div className="home-testimonials__carousel-viewport" style={{ width: `min(${viewportWidth}px, calc(100vw - 24px))` }}>
+      <div
+        className="home-testimonials__carousel-viewport"
+        style={{ width: `min(${viewportWidth}px, calc(100vw - 24px))` }}
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
+      >
         <motion.div
           className="home-testimonials__track"
           animate={{ x: translateX }}

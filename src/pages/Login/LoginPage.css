@@ -1,12 +1,14 @@
 .login-page {
-  height: 100vh;
+  min-height: 100dvh;
+  height: 100dvh;
   display: flex;
   flex-direction: column;
   overflow: hidden;
 }
 
 .login-page__content {
-  height: calc(100vh - 56px);
+  flex: 1;
+  min-height: 0;
   width: min(100%, 1440px);
   margin: 0 auto;
   display: grid;
@@ -25,6 +27,26 @@
 
 .login-page__form-area {
   justify-content: flex-end;
+}
+
+@media (max-width: 1440px) {
+  .login-page__content {
+    grid-template-columns: minmax(420px, 1fr) minmax(350px, 0.9fr);
+    gap: 1.4rem;
+    padding: 0 3rem;
+  }
+
+  .login-page__brand-area,
+  .login-page__form-area {
+    min-height: 520px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .login-page__content {
+    grid-template-columns: minmax(360px, 1fr) minmax(340px, 0.95fr);
+    padding: 0 1.8rem;
+  }
 }
 
 .auth-card-switcher {
@@ -69,7 +91,7 @@
 @media (max-width: 1024px) {
   .login-page {
     height: auto;
-    min-height: 100vh;
+    min-height: 100dvh;
     overflow: visible;
   }
 

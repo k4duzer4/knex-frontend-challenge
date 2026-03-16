@@ -122,7 +122,8 @@ function HomeProducts({ token }: HomeProductsProps) {
       <div className="home-products__content">
         <div className="home-products__header">
           <SectionTitleWithLines as="h2" className="home-products__title">
-            Nossos produtos
+            <span className="home-products__title-desktop">Nossos produtos</span>
+            <span className="home-products__title-mobile">Produtos</span>
           </SectionTitleWithLines>
           {hasProducts ? (
             <IconButton

@@ -24,6 +24,35 @@
   margin-top: 4px;
 }
 
+@media (max-width: 1440px) {
+  .register-card {
+    width: 386px;
+  }
+
+  .register-card .login-card__container {
+    width: 386px;
+  }
+
+  .register-card .login-card__container h2 {
+    font-size: 38px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .register-card {
+    width: 370px;
+  }
+
+  .register-card .login-card__container {
+    width: 370px;
+    padding: 30px 26px 20px;
+  }
+
+  .register-card .login-card__container h2 {
+    font-size: 34px;
+  }
+}
+
 @media (max-width: 500px) {
   .register-card {
     width: 100%;

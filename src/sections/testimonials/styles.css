@@ -374,6 +374,57 @@
   background: #8f5238;
 }
 
+@media (max-width: 1440px) {
+  .home-testimonials {
+    min-height: 600px;
+    padding: 84px 0;
+  }
+
+  .home-testimonials__content {
+    width: min(1120px, calc(100% - 40px));
+  }
+
+  .home-testimonials__title .section-title-with-lines__text {
+    font-size: 42px;
+  }
+
+  .home-testimonials__subtitle {
+    margin-bottom: 30px;
+  }
+}
+
+@media (max-width: 1280px) {
+  .home-testimonials {
+    padding: 72px 0;
+  }
+
+  .home-testimonials__title .section-title-with-lines__text {
+    font-size: 36px;
+  }
+
+  .home-testimonials__subtitle {
+    margin-top: 6px;
+    margin-bottom: 26px;
+    font-size: 15px;
+  }
+
+  .home-testimonials__showcase {
+    gap: 16px;
+    grid-template-columns: 44px 1fr 44px;
+  }
+
+  .home-testimonials__add-button {
+    position: static;
+    transform: none;
+    display: block;
+    margin: 12px auto 0;
+  }
+
+  .home-testimonials__subtitle {
+    margin-top: 12px;
+  }
+}
+
 @media (max-width: 900px) {
   .home-testimonials {
     min-height: auto;
@@ -390,23 +441,37 @@
   }
 
   .home-testimonials__add-button {
-    right: 50%;
-    top: 100%;
-    transform: translate(50%, 12px);
+    position: static;
+    transform: none;
+    margin: 10px auto 0;
   }
 
   .home-testimonials__empty {
-    margin-top: 58px;
+    margin-top: 34px;
   }
 
   .home-testimonials__showcase {
-    margin-top: 58px;
-    grid-template-columns: 1fr;
-    gap: 16px;
+    margin-top: 34px;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      'viewport viewport'
+      'prev next';
+    gap: 14px;
   }
 
-  .home-testimonials__arrow {
-    display: none;
+  .home-testimonials__showcase > .home-testimonials__arrow:first-child {
+    grid-area: prev;
+    justify-self: end;
+  }
+
+  .home-testimonials__showcase > .home-testimonials__arrow:last-child {
+    grid-area: next;
+    justify-self: start;
+  }
+
+  .home-testimonials__carousel-viewport {
+    grid-area: viewport;
+    touch-action: pan-y;
   }
 
   .home-testimonials__track {
