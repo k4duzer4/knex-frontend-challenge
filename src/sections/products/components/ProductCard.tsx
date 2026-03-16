@@ -4,13 +4,21 @@ import IconButton from '../../../components/ui/IconButton'
 
 type ProductCardProps = {
   product: DisplayProduct
+  onRequestEdit: (product: DisplayProduct) => void
   onRequestDelete: (product: DisplayProduct) => void
 }
 
-function ProductCard({ product, onRequestDelete }: ProductCardProps) {
+function ProductCard({ product, onRequestEdit, onRequestDelete }: ProductCardProps) {
   return (
     <article className="home-products__card">
       <div className="home-products__image-wrapper">
+        <IconButton
+          icon="✎"
+          className="home-products__edit"
+          ariaLabel={`Editar ${product.name}`}
+          onClick={() => onRequestEdit(product)}
+        />
+
         <IconButton
           icon="-"
           className="home-products__remove"

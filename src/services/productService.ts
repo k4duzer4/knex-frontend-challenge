@@ -67,6 +67,13 @@ type CreateProductPayload = {
   file_id: string
 }
 
+type UpdateProductPayload = {
+  name?: string
+  description?: string
+  price?: number
+  index?: number
+}
+
 export async function getProductsByUser(token: string) {
   const { data } = await api.get<{ products?: Product[] } | Product[]>('/products', {
     headers: {
@@ -126,5 +133,27 @@ export async function deleteProductByUser(token: string, productId: string | num
     })
   } catch (error) {
     throw new Error(extractApiErrorMessage(error, 'Nao foi possivel apagar o produto agora.'))
+  }
+}
+
+export async function updateProductByUser(
+  token: string,
+  productId: string | number,
+  payload: UpdateProductPayload,
+) {
+  const normalizedProductId = typeof productId === 'string' && /^\d+$/.test(productId)
+    ? Number(productId)
+    : productId
+
+  try {
+    const { data } = await api.put<{ product?: Product }>(`/products/${normalizedProductId}`, payload, {
+      headers: {
+        Authorization: token,
+      },
+    })
+
+    return data.product
+  } catch (error) {
+    throw new Error(extractApiErrorMessage(error, 'Nao foi possivel atualizar o produto agora.'))
   }
 }

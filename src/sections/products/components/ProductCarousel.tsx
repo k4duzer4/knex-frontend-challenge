@@ -8,10 +8,11 @@ import ProductCard from './ProductCard'
 type ProductCarouselProps = {
   products: DisplayProduct[]
   cardsPerView: CardsPerView
+  onRequestEdit: (product: DisplayProduct) => void
   onRequestDelete: (product: DisplayProduct) => void
 }
 
-function ProductCarousel({ products, cardsPerView, onRequestDelete }: ProductCarouselProps) {
+function ProductCarousel({ products, cardsPerView, onRequestEdit, onRequestDelete }: ProductCarouselProps) {
   const [activeIndex, setActiveIndex] = useState(0)
   const [isSliding, setIsSliding] = useState(false)
 
@@ -64,7 +65,12 @@ function ProductCarousel({ products, cardsPerView, onRequestDelete }: ProductCar
           onAnimationComplete={() => setIsSliding(false)}
         >
           {products.map((product) => (
-            <ProductCard key={product.id} product={product} onRequestDelete={onRequestDelete} />
+            <ProductCard
+              key={product.id}
+              product={product}
+              onRequestEdit={onRequestEdit}
+              onRequestDelete={onRequestDelete}
+            />
           ))}
         </motion.div>
       </div>

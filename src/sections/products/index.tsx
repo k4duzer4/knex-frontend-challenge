@@ -13,13 +13,16 @@ import './styles.css'
 
 function HomeProducts({ token }: HomeProductsProps) {
   const [isAddModalOpen, setIsAddModalOpen] = useState(false)
+  const [productToEdit, setProductToEdit] = useState<DisplayProduct | null>(null)
   const [productToDelete, setProductToDelete] = useState<DisplayProduct | null>(null)
   const [deleteError, setDeleteError] = useState('')
   const [isDeleting, setIsDeleting] = useState(false)
   const [isCreating, setIsCreating] = useState(false)
+  const [isUpdating, setIsUpdating] = useState(false)
   const cardsPerView = useCardsPerView()
-  const { products, isLoading, isRefreshing, requestError, addProduct, deleteProduct, reloadProducts } = useProductsCatalog(token)
-  const showSkeletonOverlay = !isLoading && (isCreating || isDeleting || isRefreshing)
+  const { products, isLoading, isRefreshing, requestError, addProduct, deleteProduct, updateProduct, reloadProducts } = useProductsCatalog(token)
+  const showSkeletonOverlay = !isLoading && (isCreating || isUpdating || isDeleting || isRefreshing)
+  const showInitialSkeleton = isLoading && !requestError
 
   function handleOpenDeleteModal(product: DisplayProduct) {
     setDeleteError('')
@@ -35,10 +38,30 @@ function HomeProducts({ token }: HomeProductsProps) {
     setProductToDelete(null)
   }
 
-  async function handleCreateProduct(input: { name: string; price: number; imageFile: File }) {
+  function handleOpenUpdateModal(product: DisplayProduct) {
+    setProductToEdit(product)
+  }
+
+  function handleCloseUpdateModal() {
+    if (isUpdating) {
+      return
+    }
+
+    setProductToEdit(null)
+  }
+
+  async function handleCreateProduct(input: { name: string; price: number; imageFile?: File }) {
+    if (!input.imageFile) {
+      throw new Error('Selecione uma foto para o produto.')
+    }
+
     try {
       setIsCreating(true)
-      await addProduct(input)
+      await addProduct({
+        name: input.name,
+        price: input.price,
+        imageFile: input.imageFile,
+      })
       toast.success('Produto criado com sucesso.')
     } catch (error) {
       const message = error instanceof Error ? error.message : 'Nao foi possivel criar o produto agora.'
@@ -69,6 +92,30 @@ function HomeProducts({ token }: HomeProductsProps) {
     }
   }
 
+  async function handleUpdateProduct(input: { name: string; price: number }) {
+    if (!productToEdit) {
+      return
+    }
+
+    try {
+      setIsUpdating(true)
+      await updateProduct({
+        id: productToEdit.id,
+        name: input.name,
+        price: input.price,
+        ...(typeof productToEdit.index === 'number' ? { index: productToEdit.index } : {}),
+      })
+      toast.success('Produto atualizado com sucesso.')
+      setProductToEdit(null)
+    } catch (error) {
+      const message = error instanceof Error ? error.message : 'Nao foi possivel atualizar o produto agora.'
+      toast.error(message)
+      throw new Error(message)
+    } finally {
+      setIsUpdating(false)
+    }
+  }
+
   return (
     <section id="products" className="home-products" aria-label="Vitrine de produtos">
       <div className="home-products__content">
@@ -86,13 +133,31 @@ function HomeProducts({ token }: HomeProductsProps) {
 
         <p className="home-products__subtitle">Conheça nossas opções de gostosuras.</p>
 
-        {isLoading ? <p className="home-products__status">Carregando produtos...</p> : null}
-
         <FallbackInfo show={!isLoading && !!requestError} message={requestError} onReload={reloadProducts} />
 
-        {!isLoading ? (
+        {showInitialSkeleton ? (
+          <div className="home-products__showcase-shell is-initial-loading" aria-label="Carregando produtos">
+            <div className="home-products__skeleton-overlay is-initial" aria-hidden>
+              <div className="home-products__skeleton-track" style={{ gridTemplateColumns: `repeat(${cardsPerView}, 240px)` }}>
+                {Array.from({ length: cardsPerView }).map((_, index) => (
+                  <article className="home-products__skeleton-card" key={`initial-skeleton-${index}`}>
+                    <div className="home-products__skeleton-image home-products__skeleton-shimmer" />
+                    <div className="home-products__skeleton-details home-products__skeleton-shimmer" />
+                  </article>
+                ))}
+              </div>
+            </div>
+          </div>
+        ) : null}
+
+        {!isLoading && !requestError ? (
           <div className={`home-products__showcase-shell ${showSkeletonOverlay ? 'is-busy' : ''}`}>
-            <ProductCarousel products={products} cardsPerView={cardsPerView} onRequestDelete={handleOpenDeleteModal} />
+            <ProductCarousel
+              products={products}
+              cardsPerView={cardsPerView}
+              onRequestEdit={handleOpenUpdateModal}
+              onRequestDelete={handleOpenDeleteModal}
+            />
 
             {showSkeletonOverlay ? (
               <div className="home-products__skeleton-overlay" aria-hidden>
@@ -113,7 +178,17 @@ function HomeProducts({ token }: HomeProductsProps) {
       <AddProductModal
         isOpen={isAddModalOpen}
         onClose={() => setIsAddModalOpen(false)}
-        onCreate={handleCreateProduct}
+        mode="create"
+        onSubmit={handleCreateProduct}
+      />
+
+      <AddProductModal
+        isOpen={!!productToEdit}
+        onClose={handleCloseUpdateModal}
+        mode="update"
+        initialName={productToEdit?.name}
+        initialPrice={productToEdit?.price}
+        onSubmit={handleUpdateProduct}
       />
 
       <DeleteProductModal

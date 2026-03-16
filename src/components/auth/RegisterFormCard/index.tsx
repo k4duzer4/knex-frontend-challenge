@@ -46,11 +46,11 @@ function RegisterFormCard({ onSwitchToLogin }: RegisterFormCardProps) {
 
   return (
     <section className="login-card register-card" aria-label="Formulario de cadastro administrativo">
-      <button className="login-card__tab" type="button" onClick={onSwitchToLogin}>
+      <button className="login-card__tab" type="button" onClick={onSwitchToLogin} disabled={isSubmitting}>
         Login
       </button>
 
-      <div className="login-card__container">
+      <div className={`login-card__container ${isSubmitting ? 'login-card__container--loading' : ''}`}>
         <h2>CADASTRO ADMIN</h2>
 
         <form className="login-card__form" onSubmit={onSubmit} noValidate>
@@ -97,6 +97,17 @@ function RegisterFormCard({ onSwitchToLogin }: RegisterFormCardProps) {
             {requestError}
           </p>
         </form>
+
+        {isSubmitting ? (
+          <div className="login-card__skeleton-overlay" aria-hidden>
+            <div className="login-card__skeleton login-card__skeleton--title" />
+            <div className="login-card__skeleton login-card__skeleton--field" />
+            <div className="login-card__skeleton login-card__skeleton--field" />
+            <div className="login-card__skeleton login-card__skeleton--field" />
+            <div className="login-card__skeleton login-card__skeleton--field" />
+            <div className="login-card__skeleton login-card__skeleton--button" />
+          </div>
+        ) : null}
       </div>
     </section>
   )

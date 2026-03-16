@@ -3,6 +3,7 @@ import {
   createProductByUser,
   deleteProductByUser,
   getProductsByUser,
+  updateProductByUser,
   uploadProductFile,
 } from '../../../services/productService'
 import type { Product } from '../../../types/product'
@@ -61,13 +62,17 @@ export function useProductsCatalog(token: string) {
 
   const apiProducts = useMemo(() => mapProductsToDisplay(visibleProducts), [visibleProducts])
 
+  function toApiPriceInt(value: number) {
+    return Math.round(value * 100)
+  }
+
   async function addProduct(input: { name: string; price: number; imageFile: File }) {
     const uploadedFile = await uploadProductFile(token, input.imageFile)
 
     await createProductByUser(token, {
       name: input.name,
       description: input.name,
-      price: input.price,
+      price: toApiPriceInt(input.price),
       file_id: uploadedFile.id,
     })
 
@@ -79,6 +84,17 @@ export function useProductsCatalog(token: string) {
     setReloadTick((current) => current + 1)
   }
 
+  async function updateProduct(input: { id: string | number; name: string; price: number; index?: number }) {
+    await updateProductByUser(token, input.id, {
+      name: input.name,
+      description: input.name,
+      price: toApiPriceInt(input.price),
+      ...(typeof input.index === 'number' ? { index: input.index } : {}),
+    })
+
+    setReloadTick((current) => current + 1)
+  }
+
   return {
     isLoading,
     isRefreshing,
@@ -86,6 +102,7 @@ export function useProductsCatalog(token: string) {
     products: apiProducts,
     addProduct,
     deleteProduct: removeProduct,
+    updateProduct,
     reloadProducts: () => setReloadTick((current) => current + 1),
   }
 }

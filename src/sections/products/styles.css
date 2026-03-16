@@ -122,6 +122,11 @@
   position: relative;
 }
 
+.home-products__showcase-shell.is-initial-loading {
+  margin-top: 28px;
+  min-height: 322px;
+}
+
 .home-products__showcase-shell.is-busy .home-products__showcase {
   opacity: 0.5;
 }
@@ -133,6 +138,11 @@
   place-items: center;
   background: linear-gradient(180deg, rgba(245, 214, 222, 0.15), rgba(245, 214, 222, 0.35));
   pointer-events: none;
+}
+
+.home-products__skeleton-overlay.is-initial {
+  position: static;
+  background: transparent;
 }
 
 .home-products__skeleton-track {
@@ -240,6 +250,17 @@
   width: 24px;
   height: 20px;
   font-size: 18px;
+  line-height: 1;
+  padding: 0;
+}
+
+.home-products__edit {
+  position: absolute;
+  left: 6px;
+  top: 6px;
+  width: 24px;
+  height: 20px;
+  font-size: 14px;
   line-height: 1;
   padding: 0;
 }

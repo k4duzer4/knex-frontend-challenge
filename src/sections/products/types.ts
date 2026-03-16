@@ -7,6 +7,7 @@ export type DisplayProduct = {
   name: string
   price: number | string
   image: string
+  index?: number
 }
 
 export type CardsPerView = 1 | 2 | 3

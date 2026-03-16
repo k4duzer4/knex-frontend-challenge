@@ -11,6 +11,7 @@ export function mapProductsToDisplay(products: Product[]): DisplayProduct[] {
       name: product.name,
       price: product.price,
       image: resolveApiAssetUrl(product.file?.path),
+      ...(typeof product.index === 'number' ? { index: product.index } : {}),
     }))
 }
 
