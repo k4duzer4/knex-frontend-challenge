@@ -21,6 +21,7 @@ function HomeProducts({ token }: HomeProductsProps) {
   const [isUpdating, setIsUpdating] = useState(false)
   const cardsPerView = useCardsPerView()
   const { products, isLoading, isRefreshing, requestError, addProduct, deleteProduct, updateProduct, reloadProducts } = useProductsCatalog(token)
+  const hasProducts = products.length > 0
   const showSkeletonOverlay = !isLoading && (isCreating || isUpdating || isDeleting || isRefreshing)
   const showInitialSkeleton = isLoading && !requestError
 
@@ -123,12 +124,14 @@ function HomeProducts({ token }: HomeProductsProps) {
           <SectionTitleWithLines as="h2" className="home-products__title">
             Nossos produtos
           </SectionTitleWithLines>
-          <IconButton
-            icon="+"
-            ariaLabel="Adicionar produto"
-            className="home-products__header-button"
-            onClick={() => setIsAddModalOpen(true)}
-          />
+          {hasProducts ? (
+            <IconButton
+              icon="+"
+              ariaLabel="Adicionar produto"
+              className="home-products__header-button"
+              onClick={() => setIsAddModalOpen(true)}
+            />
+          ) : null}
         </div>
 
         <p className="home-products__subtitle">Conheça nossas opções de gostosuras.</p>
@@ -150,7 +153,7 @@ function HomeProducts({ token }: HomeProductsProps) {
           </div>
         ) : null}
 
-        {!isLoading && !requestError ? (
+        {!isLoading && !requestError && hasProducts ? (
           <div className={`home-products__showcase-shell ${showSkeletonOverlay ? 'is-busy' : ''}`}>
             <ProductCarousel
               products={products}
@@ -171,6 +174,21 @@ function HomeProducts({ token }: HomeProductsProps) {
                 </div>
               </div>
             ) : null}
+          </div>
+        ) : null}
+
+        {!isLoading && !requestError && !hasProducts ? (
+          <div className="home-products__empty" role="status" aria-live="polite">
+            <button
+              type="button"
+              className="home-products__notice-reload"
+              aria-label="Adicionar primeiro produto"
+              onClick={() => setIsAddModalOpen(true)}
+            >
+              <span aria-hidden>+</span>
+            </button>
+            <h3 className="home-products__notice-title">Nenhum produto cadastrado</h3>
+            <p className="home-products__notice-copy">Clique no botao para cadastrar o primeiro produto.</p>
           </div>
         ) : null}
       </div>

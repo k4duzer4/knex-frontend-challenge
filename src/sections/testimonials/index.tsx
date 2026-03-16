@@ -16,6 +16,7 @@ function HomeTestimonials(_: HomeTestimonialsProps) {
   const [testimonialToDelete, setTestimonialToDelete] = useState<HomeTestimonial | null>(null)
 
   const { testimonials, addTestimonial, updateTestimonial, deleteTestimonial } = useTestimonialsCatalog()
+  const hasTestimonials = testimonials.length > 0
 
   function handleAddTestimonial(input: { name: string; role: string; message: string }) {
     try {
@@ -61,21 +62,40 @@ function HomeTestimonials(_: HomeTestimonialsProps) {
           <SectionTitleWithLines as="h2" className="home-testimonials__title">
             {TESTIMONIALS_SECTION_TITLE}
           </SectionTitleWithLines>
-          <IconButton
-            icon="+"
-            ariaLabel="Adicionar depoimento"
-            className="home-testimonials__add-button"
-            onClick={() => setIsAddModalOpen(true)}
-          />
+          {hasTestimonials ? (
+            <IconButton
+              icon="+"
+              ariaLabel="Adicionar depoimento"
+              className="home-testimonials__add-button"
+              onClick={() => setIsAddModalOpen(true)}
+            />
+          ) : null}
         </div>
 
         <p className="home-testimonials__subtitle">{TESTIMONIALS_SECTION_SUBTITLE}</p>
 
-        <TestimonialsCarousel
-          testimonials={testimonials}
-          onRequestEdit={setTestimonialToEdit}
-          onRequestDelete={setTestimonialToDelete}
-        />
+        {hasTestimonials ? (
+          <TestimonialsCarousel
+            testimonials={testimonials}
+            onRequestEdit={setTestimonialToEdit}
+            onRequestDelete={setTestimonialToDelete}
+          />
+        ) : (
+          <div className="home-testimonials__empty" role="status" aria-live="polite">
+            <button
+              type="button"
+              className="home-testimonials__empty-action"
+              aria-label="Adicionar primeiro depoimento"
+              onClick={() => setIsAddModalOpen(true)}
+            >
+              +
+            </button>
+            <h3 className="home-testimonials__empty-title">Nenhum depoimento cadastrado</h3>
+            <p className="home-testimonials__empty-copy">
+              Clique no botão para adicionar o primeiro depoimento.
+            </p>
+          </div>
+        )}
       </div>
 
       <UpsertTestimonialModal

@@ -110,6 +110,12 @@
   line-height: 1.45;
 }
 
+.home-products__empty {
+  width: fit-content;
+  margin: 22px auto 0;
+  text-align: center;
+}
+
 .home-products__showcase {
   margin-top: 28px;
   display: grid;
