@@ -54,36 +54,60 @@ O projeto implementa um sistema frontend completo com:
 - ESLint (flat config)
 - Prettier
 
-## ✅ Aderência ao Case
+## 🧩 Padrões de Projeto Utilizados
 
-### O que não pode faltar
+### 1. Component-based architecture
 
-- ✅ Uso de ESLint e Prettier
-- ✅ Código limpo e semântico
-- ✅ Componentização adequada
-- ✅ Responsividade
-- ✅ Tratamento de erros
+- A interface foi quebrada em componentes pequenos e reutilizáveis.
+- Componentes de UI genéricos (botões, inputs, títulos) ficam separados dos componentes de domínio.
 
-### O que pode te destacar
+### 2. Organização por domínio (feature-first)
 
-- ✅ Uso de TypeScript
-- ✅ Utilização de recursos modernos de UI
-- ✅ Animações fluidas nas transições
+- As principais áreas da landing (hero, products, testimonials, contact, etc.) estão em `sections/`.
+- Cada domínio concentra seus arquivos de `components`, `hooks`, `types`, `constants` e `styles`.
+
+### 3. Separação de responsabilidades
+
+- `services/`: comunicação com API e regras de integração.
+- `schemas/`: validação de dados com Zod.
+- `routes/`: controle de acesso e proteção de rotas.
+- `utils/`: funções utilitárias puras.
+
+### 4. Tipagem forte com TypeScript
+
+- Props, entidades e contratos de API são tipados.
+- Reduz erros em runtime e melhora manutenção/evolução do código.
+
+### 5. Estado local + hooks customizados
+
+- Estado de UI é mantido próximo dos componentes que o utilizam.
+- Regras repetíveis de comportamento são extraídas para hooks customizados.
+
+### 6. UX orientada a feedback
+
+- Formulários com validação em tempo real.
+- Feedback de sucesso/erro com toasts e estados de carregamento.
 
 ## 🗂️ Estrutura de Pastas
 
-```text
-src/
-  components/      # Componentes reutilizáveis (UI, auth, layout)
-  hooks/           # Hooks globais
-  pages/           # Páginas principais (Home, Login)
-  routes/          # Rotas e proteção de acesso
-  schemas/         # Schemas de validação (Zod)
-  sections/        # Seções da landing (hero, products, testimonials...)
-  services/        # Camada de API (axios e serviços)
-  types/           # Tipos compartilhados
-  utils/           # Helpers e utilitários
-```
+- `src/components/auth`: componentes visuais e de formulário da autenticação (login/cadastro).
+- `src/components/ui`: biblioteca interna de componentes reutilizáveis (botões, input e títulos).
+- `src/components/layout`: elementos estruturais compartilhados entre páginas.
+- `src/pages`: composição de telas completas e orquestração de seções.
+- `src/sections`: blocos de negócio/landing por contexto funcional.
+- `src/services`: camada de acesso HTTP e manipulação de payload/response.
+- `src/schemas`: regras de validação dos formulários com mensagens de erro.
+- `src/routes`: roteamento da aplicação e proteção de páginas autenticadas.
+- `src/hooks`: hooks de uso transversal (ex.: autenticação).
+- `src/types`: contratos e tipos compartilhados entre camadas.
+- `src/utils`: utilitários de formatação e helpers puros (cookies, moeda, string etc.).
+
+### Convenções aplicadas
+
+- `index.tsx` para componente principal da pasta.
+- `styles.css` colocalizado por componente/seção.
+- `constants.ts`, `types.ts` e `utils.ts` próximos ao domínio onde são usados.
+- Nomes de componentes em PascalCase e funções utilitárias em camelCase.
 
 ## 🔐 Fluxo de Autenticação
 
@@ -166,92 +190,53 @@ npm run format
 - Tipagem forte de props, serviços e entidades
 - Estados de carregamento e fallback de erro
 
-## 📸 Sessão de Prints (README)
-
-Para fortalecer sua entrega, adicione as imagens em `docs/screenshots/` e referencie no README.
-
-### Prints recomendados (obrigatórios para este case)
-
-1. `01-login.png`
-
-- Tela de login com validação visual (erro de email/senha).
-
-2. `02-register.png`
-
-- Tela de cadastro com validação em tempo real.
-
-3. `03-home-admin.png`
-
-- Home logada com controles de admin visíveis.
-
-4. `04-home-readonly.png`
-
-- Modo somente leitura ativado (sem controles de CRUD).
-
-5. `05-products-create-modal.png`
-
-- Modal de criação de produto com campos preenchidos.
-
-6. `06-products-list.png`
-
-- Lista/carrossel de produtos carregada da API.
-
-7. `07-products-edit-modal.png`
-
-- Fluxo de atualização de produto.
-
-8. `08-products-delete-confirm.png`
-
-- Confirmação de exclusão de produto.
-
-9. `09-testimonials-create.png`
-
-- Criação de depoimento.
-
-10. `10-responsive-mobile.png`
-
-- Versão mobile (menu, cards, formulários).
-
-11. `11-feedback-toast-success.png`
-
-- Feedback de sucesso.
-
-12. `12-feedback-toast-error.png`
-
-- Feedback de erro/tratamento de falhas de API.
-
-### Bloco pronto para colar no README
-
-```md
 ## 📸 Prints da Aplicação
 
-### Autenticação
+Imagens organizadas em docs/screenshots.
 
-![Login](docs/screenshots/01-login.png)
-![Cadastro](docs/screenshots/02-register.png)
+### 01. Login Admin
 
-### Área logada
+![01 - Login Admin](docs/screenshots/01-login.png)
 
-![Home Admin](docs/screenshots/03-home-admin.png)
-![Home Somente Leitura](docs/screenshots/04-home-readonly.png)
+### 02. Cadastro Admin
 
-### CRUD de Produtos
+![02 - Cadastro Admin](docs/screenshots/02-register.png)
 
-![Criar Produto](docs/screenshots/05-products-create-modal.png)
-![Lista de Produtos](docs/screenshots/06-products-list.png)
-![Editar Produto](docs/screenshots/07-products-edit-modal.png)
-![Excluir Produto](docs/screenshots/08-products-delete-confirm.png)
+### 03. Home Logada (Modo Admin)
 
-### Depoimentos e Responsividade
+![03 - Home Admin](docs/screenshots/03-home-admin.png)
 
-![Criar Depoimento](docs/screenshots/09-testimonials-create.png)
-![Mobile](docs/screenshots/10-responsive-mobile.png)
+### 04. Home Logada (Modo Somente Leitura)
 
-### Feedbacks e Tratamento de Erros
+![04 - Home Somente Leitura](docs/screenshots/04-home-readonly.png)
 
-![Sucesso](docs/screenshots/11-feedback-toast-success.png)
-![Erro](docs/screenshots/12-feedback-toast-error.png)
-```
+### 05. Criar Produto (Modal)
+
+![05 - Criar Produto](docs/screenshots/05-products-create-modal.png)
+
+### 06. Listagem de Produtos
+
+![06 - Lista de Produtos](docs/screenshots/06-products-list.png)
+
+### 07. Editar Produto (Modal)
+
+![07 - Editar Produto](docs/screenshots/07-products-edit-modal.png)
+
+### 08. Confirmar Exclusão de Produto
+
+![08 - Confirmar Exclusão de Produto](docs/screenshots/08-products-delete-confirm.png)
+
+### 09. Criar Depoimento (Modal)
+
+![09 - Criar Depoimento](docs/screenshots/09-testimonials-create.png)
+
+### 10. Responsividade Mobile
+
+![10 - Responsividade Mobile](docs/screenshots/10-responsive-mobile.png)
+
+### 11. Feedback de Sucesso
+
+![11 - Feedback de Sucesso](docs/screenshots/11-feedback-toast-success.png)
 
 ## 👨‍💻 Autor
 

@@ -12,7 +12,7 @@ type TestimonialsCarouselProps = {
   onRequestDelete: (testimonial: HomeTestimonial) => void
 }
 
-const CARD_WIDTH = 340
+const CARD_WIDTH = 300
 
 function getCardsPerViewByWidth(width: number): CardsPerView {
   if (width <= 700) return 1
@@ -114,7 +114,7 @@ function TestimonialsCarousel({
 
       <div
         className="home-testimonials__carousel-viewport"
-        style={{ width: `min(${viewportWidth}px, calc(100vw - 24px))` }}
+        style={{ width: `${viewportWidth}px` }}
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
       >

@@ -127,8 +127,8 @@
 }
 
 .home-testimonials__card {
-  width: 340px;
-  flex: 0 0 340px;
+  width: 300px;
+  flex: 0 0 300px;
   height: 280px;
   margin: 0;
   background: #f2f1f1;
@@ -484,8 +484,8 @@
   }
 
   .home-testimonials__card {
-    width: min(340px, 100%);
-    flex: 0 0 min(340px, 100%);
+    width: min(300px, 100%);
+    flex: 0 0 min(300px, 100%);
     height: auto;
   }
 
